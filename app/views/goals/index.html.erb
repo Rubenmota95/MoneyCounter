@@ -30,6 +30,9 @@
         <td class="font-weight-bold"><%= goal.name.capitalize %></td>
         <td class="text-secondary"><%= goal.amount %></td>
         <td><%= link_to "Edit", edit_goal_path(goal), class: "btn btn-success" %></td>
+        <td><%= link_to "Delete", goal_path(goal), method: :delete,
+              data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{goal.name} Expense?" },
+              class: "btn btn-danger" %>
       </tr>
       <% end %>
     </tbody>
