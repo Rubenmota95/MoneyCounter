@@ -44,6 +44,6 @@ class ExpensesController < ApplicationController
   private
 
   def expense_params
-    params.require(:expense).permit(:amount, :category, :name, :recurring)
+    params.require(:expense).permit(:amount, :category, :name, :frequency)
   end
 end
