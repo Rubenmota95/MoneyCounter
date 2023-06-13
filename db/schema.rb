@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_12_112047) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_13_101252) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,7 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_12_112047) do
     t.float "amount"
     t.string "category"
     t.string "name"
-    t.boolean "recurring"
+    t.string "frequency"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -28,7 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_12_112047) do
   create_table "goals", force: :cascade do |t|
     t.string "name"
     t.float "amount"
-    t.string "caregory"
+    t.string "category"
     t.string "url"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -40,7 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_12_112047) do
     t.float "amount"
     t.string "category"
     t.string "name"
-    t.boolean "recurring"
+    t.string "frequency"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
