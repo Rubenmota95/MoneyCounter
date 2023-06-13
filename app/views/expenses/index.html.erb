@@ -28,13 +28,16 @@
     <% @expenses.each do |expense| %>
       <% total += expense.amount %>
     <% end %>
-    <h5 class="font-weight-bold">Total Expenses $<%= total %></h5>
+    <div class="d-flex justify-content-between">
+      <h5 class="font-weight-bold">Total Expenses $<%= total %></h5>
+      <%= link_to "Add Expense", new_expense_path, class: "btn btn-success" %>
+    </div>
     <table class="table">
       <thead>
         <tr>
           <th scope="col">Name</th>
           <th scope="col">Category</th>
-          <th scope="col">Amount($)</th>
+          <th scope="col">Amount(€)</th>
         </tr>
       </thead>
       <tbody>
@@ -42,7 +45,8 @@
            <tr>
               <td class="font-weight-bold"><%= expense.name.capitalize %></td>
               <td class="text-secondary "><%= expense.category.capitalize %></td>
-              <td class="text-secondary"><%= expense.amount %></td>
+              <td class="text-secondary"><%= expense.amount %> €</td>
+              <td><%= link_to "Edit", edit_expense_path(expense), class: "btn btn-success" %></td>
             </tr>
         <% end %>
       </tbody>
