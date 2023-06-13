@@ -28,8 +28,11 @@ class ExpensesController < ApplicationController
 
   def update
     @expense = Expense.find(params[:id])
-    @expense.update(expense_params)
-    redirect_to expenses_path
+    if @expense.update(expense_params)
+      redirect_to expenses_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy

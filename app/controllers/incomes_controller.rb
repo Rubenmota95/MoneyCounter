@@ -28,8 +28,11 @@ class IncomesController < ApplicationController
 
   def update
     @income = Income.find(params[:id])
-    @income.update(income_params)
-    redirect_to incomes_path
+    if @income.update(income_params)
+      redirect_to incomes_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy

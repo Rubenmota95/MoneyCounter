@@ -28,8 +28,11 @@ class GoalsController < ApplicationController
 
   def update
     @goal = Goal.find(params[:id])
-    @goal.update(goal_params)
-    redirect_to goals_path
+    if @goal.update(goal_params)
+      redirect_to goals_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -41,6 +44,6 @@ class GoalsController < ApplicationController
   private
 
   def goal_params
-    params.require(:goal).permit(:amount, :category, :name, :recurring)
+    params.require(:goal).permit(:name, :amount, :category, :url)
   end
 end
