@@ -46,6 +46,12 @@
               <td class="font-weight-bold"><%= income.name.capitalize %></td>
               <td class="text-secondary "><%= income.category.capitalize %></td>
               <td class="text-secondary"><%= income.amount %> €</td>
+              <td><%= link_to "Edit", edit_income_path(income),
+              class: "btn btn-success"%>
+              </td>
+              <td><%= link_to "Delete", income_path(income), method: :delete,
+              data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{income.name} income?" },
+              class: "btn btn-danger" %>
             </tr>
         <% end %>
       </tbody>
