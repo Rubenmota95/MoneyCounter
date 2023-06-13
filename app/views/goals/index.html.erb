@@ -1,0 +1,36 @@
+<div class="container">
+  <h3 class="text-center">Mountainbike</h3>
+
+  <div class="row justify-content-center">
+    <div class="col-8 col-sm-6">
+      <img src="https://m.media-amazon.com/images/I/716+A9OrcSL._AC_SL1500_.jpg" alt="" class="img-fluid mx-auto d-block">
+    </div>
+  </div>
+  <% loaded = 80 %>
+
+  <div class="progress mt-4">
+    <div class="progress-bar bg-success" role="progressbar" style="width: <%= loaded %>%;" aria-valuenow="<%= loaded %>" aria-valuemin="0" aria-valuemax="100"><%= loaded %>%</div>
+  </div>
+
+  <table class="table mt-4">
+<div class="d-flex justify-content-end mt-3">
+      <%= link_to "Add Goal", new_goal_path, class: "btn btn-success" %>
+    </div>
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Image</th>
+        <th scope="col">Name</th>
+        <th scope="col">Amount($)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @goals.each do |goal| %>
+      <tr class="text-align-center">
+        <td><img src="https://m.media-amazon.com/images/I/716+A9OrcSL._AC_SL1500_.jpg" alt="" style="max-width: 150px; height: auto;"></td>
+        <td class="font-weight-bold"><%= goal.name.capitalize %></td>
+        <td class="text-secondary"><%= goal.amount %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
