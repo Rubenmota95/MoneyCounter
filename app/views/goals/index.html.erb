@@ -26,7 +26,12 @@
     <tbody>
       <% @goals.each do |goal| %>
       <tr class="text-align-center">
-        <td><img src="https://m.media-amazon.com/images/I/716+A9OrcSL._AC_SL1500_.jpg" alt="" style="max-width: 150px; height: auto;"></td>
+        <%# <% raise %>
+        <% if goal.photo.attached? %>
+          <td><%= cl_image_tag goal.photo.key, style:"width: 150px; height: 100px; object-fit:cover", crop: :fill %></td>
+        <% else %>
+          <td><img src="https://m.media-amazon.com/images/I/716+A9OrcSL._AC_SL1500_.jpg" alt="" style="width: 150px; height: 100px;"></td>
+        <% end %>
         <td class="font-weight-bold"><%= goal.name.capitalize %></td>
         <td class="text-secondary"><%= goal.amount %></td>
         <td><%= link_to "Edit", edit_goal_path(goal), class: "btn btn-success" %></td>
