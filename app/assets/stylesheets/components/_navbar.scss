@@ -1,0 +1,45 @@
+.navbar-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin-bottom: -29px;
+  margin-top: -5px;
+  list-style: none;
+  gap: 45px;
+  align-items: center;
+}
+
+.nav-link {
+  display: block;
+  text-decoration: none;
+  background: none;
+  border: 0;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.container-icons {
+  display: flex;
+  justify-content: center;
+}
+
+.icon-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon-wrapper p {
+  margin-top: 5px;
+}
+
+.icon-wrapper i {
+  font-size: 30px;
+}
+
+.border-bar {
+  height: 1.5px;
+  width: 100%;
+  background-color: #000;
+}

@@ -36,17 +36,19 @@ body {
 .modal {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 38%;
   transform: translate(-50%, -50%);
   width: auto;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
   padding: 1.6rem 3rem;
-  border: 3px solid black;
+  border: 2px solid black;
   border-radius: 5px;
   background: white;
   box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+  width: 357px;
+  height: 159px;
 }
 .message {
   font-size:1.1rem;
@@ -54,15 +56,16 @@ body {
   margin-top: 0;
 }
 .btn {
-  color:inherit;
+  color:white;
     font-family:inherit;
   font-size: inherit;
-  background: white;
+  background: rgb(0, 0, 0);
   padding: 0.3rem 3.4rem;
-  border: 3px solid black;
+  border: 1px solid black;
   margin-right: 2.6rem;
   box-shadow: 0 0 0 black;
   transition: all 0.2s;
+  border-radius: 7px;
 }
 
 .btn:last-child {
@@ -77,6 +80,7 @@ body {
 .btn:active {
   box-shadow: 0 0 0 black;
   transform: translate(0, 0);
+  border: 2px solid black;
 }
 
 .options {

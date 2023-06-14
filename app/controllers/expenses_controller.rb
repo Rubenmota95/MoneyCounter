@@ -1,7 +1,7 @@
 class ExpensesController < ApplicationController
 
   def index
-    @expenses = Expense.all
+    @expenses = Expense.where(user: current_user)
   end
 
   def show
@@ -44,6 +44,6 @@ class ExpensesController < ApplicationController
   private
 
   def expense_params
-    params.require(:expense).permit(:amount, :category, :name, :recurring)
+    params.require(:expense).permit(:amount, :category, :name, :frequency)
   end
 end
