@@ -8,5 +8,9 @@ Rails.application.routes.draw do
 
   resources :expenses
   resources :incomes
-  resources :goals
+  resources :goals do
+    member do
+      patch :favorite
+    end
+  end
 end
