@@ -1,27 +1,9 @@
 <div class="container">
   <h3>Incomes</h3>
 
-  <div class="container">
-    <div class="donut-chart-block block">
-      <div class="donut-chart">
-        <div id="part1" class="portion-block">
-          <div class="circle">
-          </div>
-        </div>
-        <div id="part2" class="portion-block">
-          <div class="circle">
-          <p>Grocery</p>
-          </div>
-        </div>
-        <div id="part3" class="portion-block">
-          <div class="circle">
-            <p>Make up</p>
-          </div>
-        </div>
-        <p class="center"></p>
-      </div>
-    </div>
-  </div>
+
+  <%= pie_chart Income.group(:category).sum(:amount) %>
+
 
   <div>
     <% total = 0 %>

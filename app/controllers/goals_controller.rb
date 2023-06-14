@@ -1,7 +1,7 @@
 class GoalsController < ApplicationController
 
   def index
-    @goals = Goal.all
+    @goals = Goal.all.order(created_at: :asc)
   end
 
   def show
@@ -38,6 +38,17 @@ class GoalsController < ApplicationController
   def destroy
     @goal = Goal.find(params[:id])
     @goal.destroy
+    redirect_to goals_path
+  end
+
+  # PATCH /goals/:id/favorite
+  def favorite
+    @goal = Goal.find(params[:id])
+    current_user.goals.each do |goal|
+      goal.favorite = false
+      goal.save
+    end
+    @goal.update(favorite: true)
     redirect_to goals_path
   end
 
