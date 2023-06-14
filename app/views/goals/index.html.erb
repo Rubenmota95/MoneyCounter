@@ -38,25 +38,26 @@
         <% @goals.each do |goal| %>
         <tr class="text-align-center">
           <% if goal.photo.attached? %>
-           <td> <%= cl_image_tag goal.photo.key,  style: "width: 150px; height: 100;" %></td>
+            <td> <%= cl_image_tag goal.photo.key, style: "width: 150px; max-height: 100px;" %></td>
           <% else %>
-            <td><img src="https://m.media-amazon.com/images/I/716+A9OrcSL._AC_SL1500_.jpg" alt="" style="width: 150px; height: 100;"></td>
+            <td><img src="https://m.media-amazon.com/images/I/716+A9OrcSL._AC_SL1500_.jpg" alt="" style="width: 150px; max-height: 100px;"></td>
           <% end %>
           <td class="font-weight-bold"><%= goal.name.capitalize %></td>
           <td class="text-secondary"><%= goal.amount %></td>
           <td class="text-secondary">
-            <%= link_to favorite_goal_path(goal), data: {turbo_method: :patch} do %>
+            <%= link_to favorite_goal_path(goal), data: { turbo_method: :patch } do %>
               <% if goal.favorite == false %>
                 <i class="fa-regular fa-star"></i>
               <% else %>
                 <i class="fa-solid fa-star" style="color: yellow;"></i>
               <% end %>
             <% end %>
-            </td>
+          </td>
           <td><%= link_to "Edit", edit_goal_path(goal), class: "btn btn-success" %></td>
           <td><%= link_to "Delete", goal_path(goal), method: :delete,
                 data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{goal.name} Expense?" },
                 class: "btn btn-danger" %>
+          </td>
         </tr>
         <% end %>
       </tbody>
@@ -66,7 +67,11 @@
 
     <div class="row justify-content-center">
       <div class="col-8 col-sm-6">
-        <img src="https://m.media-amazon.com/images/I/716+A9OrcSL._AC_SL1500_.jpg" alt="" class="img-fluid mx-auto d-block">
+        <% if favorite_array.first.photo.attached? %>
+          <%= cl_image_tag favorite_array.first.photo.key, class:"img-fluid mx-auto d-block rounded-4"%>
+        <% else %>
+          <img src="https://m.media-amazon.com/images/I/716+A9OrcSL._AC_SL1500_.jpg" alt="" style="width: 150px; max-height: 100px;">
+        <% end %>
       </div>
     </div>
     <% loaded = 80 %>
@@ -94,25 +99,26 @@
         <% @goals.each do |goal| %>
         <tr class="text-align-center">
           <% if goal.photo.attached? %>
-           <td> <%= cl_image_tag goal.photo.key,  style: "width: 150px; height: 100;" %></td>
+            <td> <%= cl_image_tag goal.photo.key, style: "width: 150px; max-height: 100px;" %></td>
           <% else %>
-            <td><img src="https://m.media-amazon.com/images/I/716+A9OrcSL._AC_SL1500_.jpg" alt="" style="width: 150px; height: 100;"></td>
+            <td><img src="https://m.media-amazon.com/images/I/716+A9OrcSL._AC_SL1500_.jpg" alt="" style="width: 150px; max-height: 100px;"></td>
           <% end %>
           <td class="font-weight-bold"><%= goal.name.capitalize %></td>
           <td class="text-secondary"><%= goal.amount %></td>
           <td class="text-secondary">
-            <%= link_to favorite_goal_path(goal), data: {turbo_method: :patch} do %>
+            <%= link_to favorite_goal_path(goal), data: { turbo_method: :patch } do %>
               <% if goal.favorite == false %>
                 <i class="fa-regular fa-star"></i>
               <% else %>
                 <i class="fa-solid fa-star" style="color: yellow;"></i>
               <% end %>
             <% end %>
-            </td>
+          </td>
           <td><%= link_to "Edit", edit_goal_path(goal), class: "btn btn-success" %></td>
           <td><%= link_to "Delete", goal_path(goal), method: :delete,
                 data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{goal.name} Expense?" },
                 class: "btn btn-danger" %>
+          </td>
         </tr>
         <% end %>
       </tbody>
