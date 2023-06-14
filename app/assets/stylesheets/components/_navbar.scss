@@ -1,9 +1,12 @@
 .navbar-nav {
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
   padding-left: 50px;
   padding-right: 50px;
   margin-bottom: 0;
+  margin-bottom: -23px;
+  margin-top: -5px;
   list-style: none;
   gap: 45px;
   align-items: center;
