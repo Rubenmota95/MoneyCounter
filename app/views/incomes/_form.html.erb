@@ -1,0 +1,30 @@
+<%= simple_form_for(@income) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :name, placeholder: 'income name' %>
+    <%= f.input :category, as: :select, collection: [
+  'Salary',
+  'Freelancing',
+  'Business Income',
+  'Rental Income',
+  'Investments',
+  'Gifts',
+  'Bonus'
+],
+                   prompt: 'Select Category'%>
+    <%= f.input :amount, placeholder: "0,00 €" %>
+    <%= f.input :frequency, as: :select, collection: ['One-Time', 'Weekly', 'Monthly'],
+                          placeholder: 'One-time, Weekly, Monthly' %>
+    <div class="form-actions d-flex justify-content-between mt-4">
+      <div class="d-flex align-items-center">
+        <%= link_to "Cancel", incomes_path, class: "btn btn-danger" %>
+      </div>
+      <div>
+        <%= f.button :submit, class: "btn btn-success" %>
+      </div>
+    </div>
+  </div>
+
+<% end %>
