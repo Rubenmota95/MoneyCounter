@@ -1,6 +1,6 @@
 
-$accent: #9042f7;
-$accentHover: #8b12ee;
+$accent: #000000;
+$accentHover: #222222;
 $white: #FAFAFA;
 $duration: 0.5s;
 $ease: cubic-bezier(0.68, 0.15, 0.31, 1.05);
@@ -28,11 +28,13 @@ body-nutton {
 	transition: all $duration $ease;
   margin: 15px;
   height:40px;
+  
 
 
 	&:hover {
 		cursor: pointer;
 		background-color: $accentHover;
+    border-color: #000000;
 		.button-upload__logo--complete {
 			animation: rocketAnimation 2s $ease forwards;
 		}
