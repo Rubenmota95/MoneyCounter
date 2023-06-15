@@ -1,6 +1,6 @@
 <div class="container">
   <h3>Expenses</h3>
-  <% if @expense.empty? %>
+  <% if @expenses.empty? %>
     <p>You haven't spent any money!</p>
     <%= link_to "Add you first expense!", new_expense_path, class: "btn btn-success" %>
   <% else %>
