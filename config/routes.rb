@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   resources :expenses
+  resources :groups
   resources :incomes
   resources :goals do
     member do

@@ -1,0 +1,32 @@
+<div class="container">
+  <h3>Groups</h3>
+
+  <div>
+    <% total = 0 %>
+    <div class="d-flex justify-content-between">
+      <%= link_to "Create Group", new_group_path, class: "btn btn-success" %>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Members</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @groups.each do |group| %>
+           <tr>
+              <td class="font-weight-bold"><%= group.name.capitalize %></td>
+              <td class="text-secondary ">members</td>
+              <td><%= link_to "Edit", edit_group_path(group),
+              class: "btn btn-success"%>
+              </td>
+              <td><%= link_to "Delete", group_path(group), method: :delete,
+              data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{group.name} group?" },
+              class: "btn btn-danger" %>
+            </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
