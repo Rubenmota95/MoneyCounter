@@ -1,8 +1,48 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
-    <i class="fa-regular fa-circle-user fs-1" style="color: black; margin-left: 25px;"></i>
-    <h1 style="font-size: 30px; margin-top: 15px;">MoneyCounter</h1>
-    <i class="fa-solid fa-barcode fs-1" style="color: black; margin-right: 25px;"></i>
-    </ul>
+    <%= link_to "#", class: "navbar-brand" do %>
+      <i class="fa-solid fa-barcode fs-1" style="color: black; margin-right: 25px;"></i>
+    <% end %>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <h1>MoneyCounter</h1>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto">
+        <% if user_signed_in? %>
+          <li class="nav-item dropdown">
+            <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa-regular fa-circle-user fs-1" style="color: black; margin-left: 25px;"></i>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+               <div>
+                <%= link_to "<i class='fas fa-home'></i> Home".html_safe, root_path, class: "dropdown-item" %>
+              </div>
+              <div class="d-flex">
+                <%= link_to "<i class='fa-solid fa-money-bill-trend-up'></i> Expenses".html_safe, expenses_path, class: "dropdown-item" %>
+              </div>
+              <div>
+                <%= link_to "<i class='fa-solid fa-hand-holding-dollar'></i> Incomes".html_safe, incomes_path, class: "dropdown-item" %>
+              </div>
+              <div>
+                <%= link_to "<i class='fa-solid fa-sack-dollar'></i> Goals".html_safe, goals_path, class: "dropdown-item" %>
+              </div>
+              <div>
+                <%= link_to "<i class='fa-solid fa-user-group'></i> Groups".html_safe, expenses_path, class: "dropdown-item" %>
+              </div>
+              <div>
+                <%= link_to "<i class='fas fa-sign-out-alt'></i> Log out".html_safe, destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
+              </div>
+            </div>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>
