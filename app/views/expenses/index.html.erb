@@ -5,7 +5,7 @@
     <%= link_to "Add you first expense!", new_expense_path, class: "btn btn-success" %>
   <% else %>
     <div>
-        <%= donut_chart Expense.group(:category).sum(:amount),
+        <%= donut_chart Expense.where(user: current_user).group(:category).sum(:amount),
           class: 'box',
           height: "250px",
           width: "600px",
