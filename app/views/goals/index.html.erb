@@ -21,8 +21,9 @@
       <% percentage = 100 %>
     <% end %>
 
-    <div class="progress mt-4">
-      <div class="progress-bar bg-success" role="progressbar" style="width: <%= percentage %>%;" aria-valuenow="<%= percentage %>" aria-valuemin="0" aria-valuemax="100"><%= percentage %>%</div>
+    <div class="progress mt-4" style="width: 500px">
+      <div class="progress-bar bg-success" role="progressbar" style="width: <%= percentage %>%;" aria-valuenow="<%= percentage %>" aria-valuemin="0" aria-valuemax="100"><%= percentage %>%
+      </div>
     </div>
     <div class="d-flex justify-content-between">
       <p>Saved Amount: $<%= current_user.balance %></p>
