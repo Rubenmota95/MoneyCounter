@@ -9,7 +9,7 @@
       <option value="cinema">Cinema</option>
       <option value="other">Other</option>
     </select>
-  </div>
+
   <div class="dropdown-options">
     <div class="show-hide" id="restaurant">
     </div>
@@ -17,6 +17,21 @@
     </div>
     <div class="show-hide" id="other">
     </div>
+  </div>
+  <select class="form-submit-heading" name="category" onchange="showHide(this)">
+    <option>Frequency</option>
+    <option value="always">Always</option>
+    <option value="rarely">rarely</option>
+    <option value="other">Other</option>
+    </select>
+   <div class="dropdown-options">
+    <div class="show-hide" id="always">
+    </div>
+    <div class="show-hide" id="rarely">
+    </div>
+    <div class="show-hide" id="other">
+    </div>
+  </div>
   </div>
        <button class="btn">Submit</button>
     </form>

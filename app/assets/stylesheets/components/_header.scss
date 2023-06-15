@@ -1,0 +1,19 @@
+.icon-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon-wrapper p {
+  margin-top: 5px;
+}
+
+.icon-wrapper i {
+  font-size: 30px;
+}
+
+.border-bar {
+  height: 1.5px;
+  width: 100%;
+  background-color: #000;
+}
