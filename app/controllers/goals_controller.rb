@@ -1,11 +1,16 @@
 class GoalsController < ApplicationController
 
   def index
-    @goals = Goal.all.order(created_at: :asc)
+    @goals = Goal.all.order(created_at: :asc).where(user: current_user)
   end
 
   def show
     @goal = Goal.find(params[:id])
+    if @goal.user == current_user
+      redirect_to goal_path(goal)
+    else
+      redirect_to goals_path, notice: "No permission..."
+    end
   end
 
   def new
@@ -16,7 +21,7 @@ class GoalsController < ApplicationController
     @goal = Goal.new(goal_params)
     @goal.user = current_user
     if @goal.save
-      redirect_to goals_path
+      redirect_to goals_path, notice: "Goal added successfully"
     else
       render :new, status: :unprocessable_entity
     end
@@ -55,6 +60,6 @@ class GoalsController < ApplicationController
   private
 
   def goal_params
-    params.require(:goal).permit(:name, :amount, :category, :url)
+    params.require(:goal).permit(:name, :amount, :category, :url, :photo)
   end
 end

@@ -1,0 +1,42 @@
+.icon-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon-wrapper p {
+  margin-top: 5px;
+}
+
+.icon-wrapper i {
+  font-size: 30px;
+}
+
+.border-bar {
+  height: 1.5px;
+  width: 100%;
+  background-color: #000;
+}
+
+.navbar-lewagon {
+  justify-content: space-between;
+  background: white;
+  box-shadow: 0 -6px 10px 2px rgba(0,0,0,0.2);
+}
+
+.navbar-lewagon .navbar-collapse {
+  flex-grow: 0;
+}
+
+.navbar-lewagon .navbar-brand img {
+  width: 40px;
+}
+
+.navbar-collapse {
+  align-items: baseline;
+}
+
+.navbar-expand-sm .navbar-nav {
+  flex-direction: row;
+  padding-right: 0px;
+}
