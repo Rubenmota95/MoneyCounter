@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
@@ -13,7 +13,7 @@
 
   <body><%= render "shared/header" %>
 <%= render "shared/flashes" %>
-<%= render "shared/card_submit" %>
+
 
     <%= yield %>
   </body>

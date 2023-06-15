@@ -46,8 +46,8 @@ body {
   border-radius: 5px;
   background: white;
   box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
-  width: 357px;
-  height: 502px;
+  width: 295px;
+  height: 437px;
 }
 .message {
   font-size:1.1rem;
@@ -117,7 +117,7 @@ body {
 	.form-control {
 	  position: relative;
 	  font-size: 16px;
-	  height: auto;
+	  height: 20px;
 	  padding: 10px;
 
 		&:focus {
@@ -126,14 +126,7 @@ body {
 	}
 
 	input[type="text"] {
-	  margin-bottom: 16px;
-	  border-bottom-left-radius: 0;
-	  border-bottom-right-radius: 0;
-	}
-
-	input[type="password"] {
 	  margin-bottom: 20px;
-	  border-top-left-radius: 0;
-	  border-top-right-radius: 0;
+    border-radius: 7px;
 	}
 }
