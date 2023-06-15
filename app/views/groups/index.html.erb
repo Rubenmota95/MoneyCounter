@@ -17,7 +17,7 @@
         <% @groups.each do |group| %>
            <tr>
               <td class="font-weight-bold"><%= group.name.capitalize %></td>
-              <td class="text-secondary ">members</td>
+              <td class="text-secondary "><%= group.users.first.email %></td>
               <td><%= link_to "Edit", edit_group_path(group),
               class: "btn btn-success"%>
               </td>

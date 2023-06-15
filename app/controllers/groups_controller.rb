@@ -21,7 +21,6 @@ class GroupsController < ApplicationController
     # friend = User.find(params[:group][:users].to_i)
     # @group_users << friend
     @group.users << current_user
-    raise
     if @group.save
       redirect_to groups_path, notice: "group added successfully"
     else
