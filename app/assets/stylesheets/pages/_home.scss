@@ -1,5 +1,11 @@
-// Specific CSS for your home-page
-.container-body{
-  display: grid;
-  justify-items: center;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 122vh;
+}
+
+.card-quote {
+  position: relative;
 }
