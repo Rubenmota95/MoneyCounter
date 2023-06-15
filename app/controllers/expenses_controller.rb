@@ -6,6 +6,11 @@ class ExpensesController < ApplicationController
 
   def show
     @expense = Expense.find(params[:id])
+    if @expense.user == current_user
+      redirect_to expense_path(expense)
+    else
+      redirect_to expenses_path, notice: "No permission..."
+    end
   end
 
   def new
@@ -16,7 +21,7 @@ class ExpensesController < ApplicationController
     @expense = Expense.new(expense_params)
     @expense.user = current_user
     if @expense.save
-      redirect_to expenses_path
+      redirect_to expenses_path, notice: "Expense added successfully"
     else
       render :new, status: :unprocessable_entity
     end
