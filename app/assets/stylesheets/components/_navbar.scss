@@ -9,6 +9,7 @@
   list-style: none;
   gap: 45px;
   align-items: center;
+
 }
 
 .nav-link {
@@ -39,7 +40,20 @@
 }
 
 .border-bar {
-  height: 1.5px;
+  height: 1px;
   width: 100%;
   background-color: #000;
+  box-shadow: 0 -6px 10px 2px rgba(0,0,0,0.2);
+}
+
+.fixed-bottom {
+  position: fixed;
+  padding-top: 5px;
+  padding-bottom: 4px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1030;
+  background: #ffffff;
+  box-shadow: 0 5px 4px 0px rgba(0, 0, 0, 8.2);
 }
