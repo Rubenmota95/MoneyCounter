@@ -1,0 +1,7 @@
+</td>
+              <td><%= link_to "Edit", edit_group_path(group),
+              class: "btn btn-success"%>
+              </td>
+              <td><%= link_to "Delete", group_path(group), method: :delete,
+              data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{group.name} group?" },
+              class: "btn btn-danger" %>

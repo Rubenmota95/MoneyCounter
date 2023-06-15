@@ -5,9 +5,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
-    if @group.user == current_user
-      redirect_to group_path(group)
-    else
+    if !current_user.groups.exists?(@group.id)
       redirect_to groups_path, notice: "No permission..."
     end
   end
@@ -18,11 +16,17 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.new(group_params)
-    # friend = User.find(params[:group][:users].to_i)
-    # @group_users << friend
+    user_ids = params[:group][:user_ids]
+    friends = User.where(id: user_ids)
+
+    friends.each do |friend|
+      @group.users << friend
+    end
+
     @group.users << current_user
+
     if @group.save
-      redirect_to groups_path, notice: "group added successfully"
+      redirect_to groups_path, notice: "Group added successfully"
     else
       render :new, status: :unprocessable_entity
     end
@@ -50,7 +54,7 @@ class GroupsController < ApplicationController
   private
 
   def group_params
-    params.require(:group).permit(:name)
+    params.require(:group).permit(:name, user_groups_attributes: [:user_id])
   end
 
 end
