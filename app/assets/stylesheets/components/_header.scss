@@ -32,3 +32,12 @@
 .navbar-lewagon .navbar-brand img {
   width: 40px;
 }
+
+.navbar-collapse {
+  align-items: baseline;
+}
+
+.navbar-expand-sm .navbar-nav {
+  flex-direction: row;
+  padding-right: 0px;
+}
