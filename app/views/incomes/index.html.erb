@@ -1,59 +1,63 @@
 <div class="container">
   <h3>Incomes</h3>
-
-  <div>
-    <%= donut_chart Income.group(:category).sum(:amount),
-      class: 'box',
-      height: "250px",
-      width: "600px",
-      options: {
-        legend: {
-          orient: 'vertical', right: 'right',
-          height: "250px",
-          width: "250px",
-        },
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.5)'
+  <% if @incomes.empty? %>
+    <h5>You haven't added any income yet!</h5>
+    <%= link_to "Add your first Income!", new_income_path, class: "btn btn-success" %>
+  <% else %>
+    <div>
+      <%= donut_chart Income.group(:category).sum(:amount),
+        class: 'box',
+        height: "250px",
+        width: "600px",
+        options: {
+          legend: {
+            orient: 'vertical', right: 'right',
+            height: "250px",
+            width: "250px",
+          },
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
           }
         }
-      }
-    %>
-  </div>
-  <div>
-    <% total = 0 %>
-    <% @incomes.each do |income| %>
-      <% total += income.amount %>
-    <% end %>
-    <div class="d-flex justify-content-between">
-      <h5 class="font-weight-bold">Total Incomes $<%= total %></h5>
-      <%= link_to "Add Income", new_income_path, class: "btn btn-success" %>
+      %>
     </div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Category</th>
-          <th scope="col">Amount(€)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @incomes.each do |income| %>
-           <tr>
-              <td class="font-weight-bold"><%= income.name.capitalize %></td>
-              <td class="text-secondary "><%= income.category.capitalize %></td>
-              <td class="text-secondary"><%= income.amount %> €</td>
-              <td><%= link_to "Edit", edit_income_path(income),
-              class: "btn btn-success"%>
-              </td>
-              <td><%= link_to "Delete", income_path(income), method: :delete,
-              data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{income.name} income?" },
-              class: "btn btn-danger" %>
-            </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+    <div>
+      <% total = 0 %>
+      <% @incomes.each do |income| %>
+        <% total += income.amount %>
+      <% end %>
+      <div class="d-flex justify-content-between">
+        <h5 class="font-weight-bold">Total Incomes $<%= total %></h5>
+        <%= link_to "Add Income", new_income_path, class: "btn btn-success" %>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Amount(€)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @incomes.each do |income| %>
+            <tr>
+                <td class="font-weight-bold"><%= income.name.capitalize %></td>
+                <td class="text-secondary "><%= income.category.capitalize %></td>
+                <td class="text-secondary"><%= income.amount %> €</td>
+                <td><%= link_to "Edit", edit_income_path(income),
+                class: "btn btn-success"%>
+                </td>
+                <td><%= link_to "Delete", income_path(income), method: :delete,
+                data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{income.name} income?" },
+                class: "btn btn-danger" %>
+              </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
 </div>
