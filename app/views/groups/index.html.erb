@@ -17,13 +17,14 @@
         <% @groups.each do |group| %>
            <tr>
               <td class="font-weight-bold"><%= group.name.capitalize %></td>
-              <td class="text-secondary "><%= group.users.first.email %></td>
-              <td><%= link_to "Edit", edit_group_path(group),
+              <td class="text-secondary ">
+                <% group.users.each do |user| %>
+                  <%=user.email  %>
+                <% end %>
+              </td>
+              <td><%= link_to "Open", group_path(group),
               class: "btn btn-success"%>
               </td>
-              <td><%= link_to "Delete", group_path(group), method: :delete,
-              data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{group.name} group?" },
-              class: "btn btn-danger" %>
             </tr>
         <% end %>
       </tbody>
