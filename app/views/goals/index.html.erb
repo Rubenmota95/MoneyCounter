@@ -25,8 +25,8 @@
       <div class="progress-bar bg-success" role="progressbar" style="width: <%= percentage %>%;" aria-valuenow="<%= percentage %>" aria-valuemin="0" aria-valuemax="100"><%= percentage %>%</div>
     </div>
     <div class="d-flex justify-content-between">
-      <p>Balance: $<%= current_user.balance %></p>
-      <p>Goal: $<%= @goals.first.amount %></p>
+      <p>Saved Amount: $<%= current_user.balance %></p>
+      <p><%= @goals.first.name %>'s Price: $<%= @goals.first.amount %></p>
     </div>
 
 
@@ -96,8 +96,8 @@
       <div class="progress-bar bg-success" role="progressbar" style="width: <%= percentage %>%;" aria-valuenow="<%= percentage %>" aria-valuemin="0" aria-valuemax="100"><%= percentage %>%</div>
     </div>
     <div class="d-flex justify-content-between">
-      <p>Balance: $<%= current_user.balance %></p>
-      <p>Goal: $<%= favorite_array.first.amount %></p>
+      <p>Saved Amount: $<%= current_user.balance %></p>
+      <p><%= favorite_array.first.name %>'s Price: $<%= favorite_array.first.amount %></p>
     </div>
 
     <div class="d-flex justify-content-end mt-3">
