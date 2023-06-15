@@ -1,9 +1,14 @@
-
-<div class="container-home">
-  <div class="container-body">
-    <%= render "shared/popup_choice" %>
+<% if user_signed_in? %>
+  <div class="container-home">
+    <div class="container-body">
+      <%= render "shared/popup_choice" %>
+    </div>
+    <div class="card-quote">
+      <%= render "pages/card_quote" %>
+    </div>
   </div>
-  <div class="card-quote">
-    <%= render "pages/card_quote" %>
-  </div>
-</div>
+<% else %>
+  <div class="container-home">
+  <%= render "shared/welcome_popup" %>
+  <%= render "shared/card_presentation" %>
+<% end %>
