@@ -1,11 +1,16 @@
 class IncomesController < ApplicationController
 
   def index
-    @incomes = Income.all
+    @incomes = Income.where(user: current_user)
   end
 
   def show
     @income = Income.find(params[:id])
+    if @income.user == current_user
+      redirect_to income_path(income)
+    else
+      redirect_to incomes_path, notice: "No permission..."
+    end
   end
 
   def new
@@ -16,7 +21,7 @@ class IncomesController < ApplicationController
     @income = Income.new(income_params)
     @income.user = current_user
     if @income.save
-      redirect_to incomes_path
+      redirect_to incomes_path, notice: "Income added successfully"
     else
       render :new, status: :unprocessable_entity
     end
