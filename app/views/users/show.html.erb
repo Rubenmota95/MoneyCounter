@@ -1,0 +1,25 @@
+<div class="container">
+  <h2>Your Profile</h2>
+
+  <div class="row">
+    <div class="col-md-4">
+      <% if current_user.photo.present? %>
+        <%= image_tag current_user.photo, class: "img-fluid square", width: "200", height: "200" %>
+      <% else %>
+        <p>No photo available</p>
+      <% end %>
+    </div>
+    <div class="col-md-8">
+      <h4>First Name:</h4>
+      <p><%= current_user.first_name %></p>
+
+      <h4>Last Name:</h4>
+      <p><%= current_user.last_name %></p>
+
+      <h4>Email:</h4>
+      <p><%= current_user.email %></p>
+
+      <%= link_to "Edit Profile", edit_user_path(current_user), class: "btn btn-primary" %>
+    </div>
+  </div>
+</div>

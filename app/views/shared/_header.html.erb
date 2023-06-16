@@ -14,26 +14,32 @@
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
           <li class="nav-item dropdown">
-            <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa-regular fa-circle-user fs-1" style="color: black; margin-left: 25px;"></i>
+            <% if current_user.photo.attached? %>
+              <%= image_tag(current_user.photo, class: "avatar", style: "height: 50px; width: 50px; border-radius: 50%", "data-bs-toggle": "dropdown", "data-bs-target": "#navbarDropdown", "aria-haspopup": "true", "aria-expanded": "false") %>
+            <% else %>
+              <i class="fa-regular fa-circle-user fs-1" style="color: black; margin-left: 25px;" data-bs-toggle= "dropdown", data-bs-target= "#navbarDropdown", aria-haspopup= "true", aria-expanded= "false"></i>
+            <% end  %>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-               <div>
-                <%= link_to "<i class='fas fa-home'></i> Home".html_safe, root_path, class: "dropdown-item" %>
-              </div>
-              <div class="d-flex">
-                <%= link_to "<i class='fa-solid fa-money-bill-trend-up'></i> Expenses".html_safe, expenses_path, class: "dropdown-item" %>
+              <div>
+                <%= link_to raw('<i class="fas fa-home"></i> Home'), root_path, class: "dropdown-item" %>
               </div>
               <div>
-                <%= link_to "<i class='fa-solid fa-hand-holding-dollar'></i> Incomes".html_safe, incomes_path, class: "dropdown-item" %>
+                <%= link_to raw('<i class="fa-solid fa-user"></i> Profile'), user_path(current_user), class: "dropdown-item" %>
               </div>
               <div>
-                <%= link_to "<i class='fa-solid fa-sack-dollar'></i> Goals".html_safe, goals_path, class: "dropdown-item" %>
+                <%= link_to raw('<i class="fa-solid fa-money-bill-trend-up"></i> Expenses'), expenses_path, class: "dropdown-item" %>
               </div>
               <div>
-                <%= link_to "<i class='fa-solid fa-user-group'></i> Groups".html_safe, expenses_path, class: "dropdown-item" %>
+                <%= link_to raw('<i class="fa-solid fa-hand-holding-dollar"></i> Incomes'), incomes_path, class: "dropdown-item" %>
               </div>
               <div>
-                <%= link_to "<i class='fas fa-sign-out-alt'></i> Log out".html_safe, destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
+                <%= link_to raw('<i class="fa-solid fa-sack-dollar"></i> Goals'), goals_path, class: "dropdown-item" %>
+              </div>
+              <div>
+                <%= link_to raw('<i class="fa-solid fa-user-group"></i> Groups'), expenses_path, class: "dropdown-item" %>
+              </div>
+              <div>
+                <%= link_to raw('<i class="fas fa-sign-out-alt"></i> Log out'), destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
               </div>
             </div>
           </li>
