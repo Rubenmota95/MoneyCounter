@@ -50,8 +50,8 @@
           <% end %>
           <div class="card-product-infos text-center">
             <div class="d-flex">
-            <h2 class="ms-3"><%= goal.name %> <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= goal.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></h2>
-            <h2 style="margin-left: 200px;">$<%= goal.amount %></h2>
+            <h2 class="ms-3"><%= goal.name %></h2>
+            <h2 style="margin-left: 200px;">$<%= goal.amount %> <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= goal.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></h2>
             <%= link_to favorite_goal_path(goal), data: { turbo_method: :patch } do %>
               <% if goal.favorite == false %>
                 <i class="fa-regular fa-star fs-4 ms-5 me-5 text-dark"></i>
