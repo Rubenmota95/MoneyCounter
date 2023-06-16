@@ -48,7 +48,7 @@
             <tr>
                 <td class="font-weight-bold"><%= expense.name.capitalize %></td>
                 <td class="text-secondary "><%= expense.category.capitalize %></td>
-                <td class="text-secondary"><%= expense.amount %> €</td>
+                <td class="text-secondary"><%= expense.amount %> € <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= expense.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></td>
                 <td><%= link_to "Edit", edit_expense_path(expense),
                 class: "btn btn-success"%>
                 </td>

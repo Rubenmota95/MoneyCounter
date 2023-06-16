@@ -47,7 +47,7 @@
             <tr>
                 <td class="font-weight-bold"><%= income.name.capitalize %></td>
                 <td class="text-secondary "><%= income.category.capitalize %></td>
-                <td class="text-secondary"><%= income.amount %> €</td>
+                <td class="text-secondary"><%= income.amount %> € <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= income.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></td>
                 <td><%= link_to "Edit", edit_income_path(income),
                 class: "btn btn-success"%>
                 </td>
