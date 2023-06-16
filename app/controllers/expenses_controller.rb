@@ -1,7 +1,7 @@
 class ExpensesController < ApplicationController
 
   def index
-    @expenses = Expense.where(user: current_user)
+    @expenses = Expense.where(user: current_user,group_id: nil)
   end
 
   def show
@@ -22,7 +22,12 @@ class ExpensesController < ApplicationController
     @expense.user = current_user
 
     if @expense.save!
-      redirect_to expenses_path, notice: "Expense added successfully"
+      if @expense.group_id.nil?
+        redirect_to expenses_path, notice: "Expense added successfully"
+      else
+        @group = Group.find(@expense.group_id)
+        redirect_to group_path(@group), notice: "Expense added successfully to #{@group.name}"
+      end
     else
       render :new, status: :unprocessable_entity
     end
