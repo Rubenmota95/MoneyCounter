@@ -1,11 +1,11 @@
 <div class="container">
-  <h3>Expenses</h3>
-  <% if @expenses.empty? %>
+  <h3><%= @group.name  %>'s Expenses</h3>
+  <% if @my_expenses_group.empty? %>
     <p>You haven't spent any money!</p>
-    <%= link_to "Add you first expense!", new_expense_path, class: "btn btn-success" %>
+    <%= link_to "Add your first expense!", new_expense_path, class: "btn btn-success" %>
   <% else %>
     <div>
-        <%= donut_chart Expense.where(user: current_user, group_id: nil).group(:category).sum(:amount),
+        <%= donut_chart Expense.where(group_id: @group).group(:category).sum(:amount),
           class: 'box',
           height: "250px",
           width: "600px",
@@ -28,7 +28,7 @@
 
     <div>
       <% total = 0 %>
-      <% @expenses.each do |expense| %>
+      <% @my_expenses_group.each do |expense| %>
         <% total += expense.amount %>
       <% end %>
       <div class="d-flex justify-content-between">
@@ -44,7 +44,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @expenses.each do |expense| %>
+          <% @my_expenses_group.each do |expense| %>
             <tr>
                 <td class="font-weight-bold"><%= expense.name.capitalize %></td>
                 <td class="text-secondary "><%= expense.category.capitalize %></td>
@@ -63,3 +63,10 @@
     </div>
   <% end %>
 </div>
+
+<div class="d-flex justify-content-center"><%= link_to "Edit Group", edit_group_path(@group), class: "btn btn-success"%>
+<%= link_to "Delete Group",
+            group_path(@group),
+            method: :delete,
+            data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{@group.name} group with all its expenses?" },
+            class: "btn btn-danger" %></div>

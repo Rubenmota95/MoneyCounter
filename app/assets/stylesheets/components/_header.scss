@@ -18,9 +18,11 @@
   background-color: #000;
 }
 
+
 .navbar-lewagon {
   justify-content: space-between;
   background: white;
+  box-shadow: 0 -6px 10px 2px rgba(0,0,0,0.2);
 }
 
 .navbar-lewagon .navbar-collapse {
@@ -29,4 +31,39 @@
 
 .navbar-lewagon .navbar-brand img {
   width: 40px;
+}
+
+.navbar-collapse {
+  align-items: baseline;
+}
+
+.navbar-expand-sm .navbar-nav {
+  flex-direction: row;
+  padding-right: 0px;
+}
+
+@media (max-width: 576px) {
+  .navbar-brand {
+    margin-right: 0px;
+  }
+
+  .navbar-toggler {
+    margin-right: 15px;
+  }
+
+  .navbar-nav {
+
+    align-items: center;
+    display: flex;
+
+  }
+
+  .navbar-nav li {
+    margin: 5px 0;
+  }
+
+  h1 {
+    text-align: center;
+    margin-top: 10px;
+  }
 }

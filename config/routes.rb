@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
 
   resources :expenses
+  resources :groups
   resources :incomes
   resources :goals do
     member do

@@ -12,11 +12,15 @@
   </head>
 
   <body>
-    <%= render "shared/header" %>
-    <%= render "shared/flashes" %>
-    
-    <%= yield %>
-    
+    <% if user_signed_in? %>
+      <%= render "shared/header" %>
+      <%= render "shared/flashes" %>
+
+      <%= yield %>
+
+      <%= render "shared/navbar" %>
+    <% else %>
+      <%= yield %>
+    <% end %>
   </body>
-  <%= render "shared/navbar" %>
 </html>

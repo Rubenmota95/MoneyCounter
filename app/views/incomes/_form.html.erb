@@ -4,15 +4,7 @@
 
   <div class="form-inputs">
     <%= f.input :name, placeholder: 'income name' %>
-    <%= f.input :category, as: :select, collection: [
-  'Salary',
-  'Freelancing',
-  'Business Income',
-  'Rental Income',
-  'Investments',
-  'Gifts',
-  'Bonus'
-],
+    <%= f.input :category, as: :select, collection: ['Salary', 'Investments', 'Rental Income', 'Freelance']
                    prompt: 'Select Category'%>
     <%= f.input :amount, placeholder: "0,00 €" %>
     <%= f.input :frequency, as: :select, collection: ['One-Time', 'Weekly', 'Monthly'],

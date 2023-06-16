@@ -1,0 +1,79 @@
+
+$accent: #000000;
+$accentHover: #222222;
+$white: #FAFAFA;
+$duration: 0.5s;
+$ease: cubic-bezier(0.68, 0.15, 0.31, 1.05);
+$f-cta--large: 12px;
+
+body-nutton {
+  display: flex;
+  height: 10vh;
+  justify-content: center;
+  align-items:center;
+
+}
+
+.button-upload {
+
+	background-color: $accent;
+	border-radius: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: $white;
+	flex-direction: row;
+	border: none;
+	padding: initial;
+	transition: all $duration $ease;
+  margin: 15px;
+  height:40px;
+  
+
+
+	&:hover {
+		cursor: pointer;
+		background-color: $accentHover;
+    border-color: #000000;
+		.button-upload__logo--complete {
+			animation: rocketAnimation 2s $ease forwards;
+		}
+	}
+
+	&__logo {
+		width: 4.2rem;
+    margin-bottom: 5px;
+	}
+	&__text {
+		font-size: $f-cta--large;
+		font-weight: 600;
+		display: block;
+    letter-spacing: 0.1rem;
+    margin-left: 10px;
+ 	}
+
+	@keyframes rocketAnimation {
+		0% {
+			transform: rotate(49deg 18px 17px);
+		}
+		25% {
+			transform: rotate(0deg) translateX(6px);
+		}
+		50% {
+			transform: translateY(-45px) translateX(6px);
+		}
+		60% {
+			transform: translateY(30px) translateX(6px);
+		}
+		70% {
+			opacity: 0;
+		}
+		90% {
+			transform: translateY(0px) translateX(6px);
+			opacity: 1;
+		}
+		100% {
+			transform: rotate(49deg 18px 17px);
+		}
+	}
+}
