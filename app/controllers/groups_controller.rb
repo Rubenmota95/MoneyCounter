@@ -5,9 +5,15 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+    @group.users.each do |user|
+      @my_expenses_group = user.expenses.select do |expense|
+        expense.group_id == @group.id
+      end
+    end
     if !current_user.groups.exists?(@group.id)
       redirect_to groups_path, notice: "No permission..."
     end
+    @expenses = Expense.where(group: @group.id)
   end
 
   def new
