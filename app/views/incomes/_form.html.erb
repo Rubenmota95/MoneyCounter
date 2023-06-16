@@ -4,11 +4,11 @@
 
   <div class="form-inputs">
     <%= f.input :name, placeholder: 'income name' %>
-    <%= f.input :category, as: :select, collection: ['Salary', 'Investments', 'Rental Income', 'Freelance']
+    <%= f.input :category, as: :select, collection: ['Salary', 'Investments', 'Rental Income', 'Freelance'],
                    prompt: 'Select Category'%>
     <%= f.input :amount, placeholder: "0,00 €" %>
     <%= f.input :frequency, as: :select, collection: ['One-Time', 'Weekly', 'Monthly'],
-                          placeholder: 'One-time, Weekly, Monthly' %>
+                          prompt: 'One-time, Weekly or Monthly' %>
     <div class="form-actions d-flex justify-content-between mt-4">
       <div class="d-flex align-items-center">
         <%= link_to "Cancel", incomes_path, class: "btn btn-danger" %>
