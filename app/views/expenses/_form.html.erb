@@ -24,6 +24,8 @@
     <%= f.input :amount, placeholder: "0,00 €" %>
     <%= f.input :frequency, as: :select, collection: ['One-Time', 'Weekly', 'Monthly'],
                           placeholder: 'One-time, Weekly, Monthly' %>
+    <%= f.input :group_id, as: :select, collection: current_user.groups,
+                   prompt: 'Select Group'%>
     <div class="form-actions d-flex justify-content-between mt-4">
       <div class="d-flex align-items-center">
         <%= link_to "Cancel", expenses_path, class: "btn btn-danger" %>

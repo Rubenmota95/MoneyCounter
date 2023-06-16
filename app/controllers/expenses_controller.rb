@@ -20,7 +20,8 @@ class ExpensesController < ApplicationController
   def create
     @expense = Expense.new(expense_params)
     @expense.user = current_user
-    if @expense.save
+
+    if @expense.save!
       redirect_to expenses_path, notice: "Expense added successfully"
     else
       render :new, status: :unprocessable_entity
@@ -49,6 +50,6 @@ class ExpensesController < ApplicationController
   private
 
   def expense_params
-    params.require(:expense).permit(:amount, :category, :name, :frequency)
+    params.require(:expense).permit(:amount, :category, :name, :frequency, :group_id)
   end
 end
