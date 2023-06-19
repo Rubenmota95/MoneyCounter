@@ -27,11 +27,69 @@
       %>
     </div>
 
-    <div>
-      <% total = 0 %>
-      <% @my_expenses_group.each do |expense| %>
-        <% total += expense.amount %>
+  <div>
+    <% total = 0 %>
+    <% @group_expenses.each do |expense| %>
+      <% total += expense.amount %>
+    <% end %>
+    <% fair_amount = total / @group.users.count %>
+    <p>Fair Amount per Friend: $ <%= fair_amount %></p>
+
+    <p>Actual Amount per Friend:</p>
+    <% user_amounts = @group_expenses.group(:email).sum(:amount) %>
+    <ul>
+    <% user_amounts.each do |key, value| %>
+      <li><%= "#{key}: $ #{value}" %></li>
+    <% end %>
+    <% @group.users.select { |user| user.expenses.empty? }. each do |user| %>
+      <li><%= "#{user.email}: $ 0" %></li>
+    <% end %>
+    </ul>
+    <p>To be paid to friends:</p>
+
+    <ul>
+      <% user_amounts.each do |key, value| %>
+        <% difference = fair_amount - value %>
+        <% if difference.positive? %>
+          <li><%= "#{key}: $ #{difference}" %></li>
+        <% end %>
       <% end %>
+      <% no_expense_users = @group.users.select { |user| user.expenses.empty? } %>
+        <% if !no_expense_users.nil? %>
+          <% no_expense_users.each do |user|  %>
+            <li><%= "#{user.email}: $ #{fair_amount}" %></li>
+        <% end %>
+      <% end %>
+    </ul>
+    <p>Friends to receive money:</p>
+    <% user_amounts = @group_expenses.group(:email).sum(:amount) %>
+    <ul>
+      <% user_amounts.each do |key, value| %>
+        <% difference = fair_amount - value %>
+        <% if difference.negative? %>
+          <li><%= "#{key}: $ #{difference.abs}" %></li>
+        <% end %>
+      <% end %>
+    </ul>
+
+    <p>Who pays to who:</p>
+    <% divided_user_amounts = user_amounts.transform_values { |value| value / @group.users.count } %>
+    <% current_user_divided_amount = {}  %>
+    <% current_user_divided_amount = divided_user_amounts.extract!(current_user.email) %>
+    <% divided_user_amounts.delete(current_user.email)%>
+    <ul>
+      <% divided_user_amounts.each do |key, amount| %>
+        <% if (amount - current_user_divided_amount.values.first) > 0 %>
+        <li><%= "You owe #{key} $ #{amount - current_user_divided_amount.values.first}" %></li>
+        <% else %>
+          <li><%= "#{key} owes you $ #{(amount - current_user_divided_amount.values.first).abs}" %></li>
+        <% end %>
+      <% end %>
+    </ul>
+
+  </div>
+
+    <div>
       <div class="d-flex justify-content-between">
         <h5 class="font-weight-bold">Total Expenses $<%= total %></h5>
         <%= link_to "Add Expense", new_expense_path, class: "btn btn-success" %>
@@ -42,14 +100,16 @@
             <th scope="col">Name</th>
             <th scope="col">Category</th>
             <th scope="col">Amount(€)</th>
+            <th scope="col">Friend</th>
           </tr>
         </thead>
         <tbody>
-          <% @my_expenses_group.each do |expense| %>
+          <% @group_expenses.each do |expense| %>
             <tr>
                 <td class="font-weight-bold"><%= expense.name.capitalize %></td>
                 <td class="text-secondary "><%= expense.category.capitalize %></td>
                 <td class="text-secondary"><%= expense.amount %> €</td>
+                <td class="text-secondary"><%= expense.user.email %></td>
                 <td><%= link_to "Edit", edit_expense_path(expense),
                 class: "btn btn-success"%>
                 </td>
