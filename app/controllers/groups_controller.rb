@@ -5,15 +5,11 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
-    @group.users.each do |user|
-      @my_expenses_group = user.expenses.select do |expense|
-        expense.group_id == @group.id
-      end
-    end
+    @group_expenses= @group.expenses.where(group_id: @group.id)
     if !current_user.groups.exists?(@group.id)
       redirect_to groups_path, notice: "No permission..."
     end
-    @expenses = Expense.where(group: @group.id)
+    @expenses = Expense.where(group: @group)
   end
 
   def new
@@ -44,6 +40,11 @@ class GroupsController < ApplicationController
 
   def update
     @group = Group.find(params[:id])
+    user_ids = params[:group][:user_ids]
+    friends = User.where(id: user_ids)
+    friends.each do |friend|
+    @group.users << friend if !@group.users.include?(friend)
+    end
     if @group.update(group_params)
       redirect_to groups_path
     else
