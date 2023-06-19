@@ -1,19 +1,26 @@
 <div class="container">
-  <h3>Expenses</h3>
+  <h3 class="text-success text-center mt-4 mb-4">Expenses</h3>
   <% if @expenses.empty? %>
     <p>You haven't spent any money!</p>
     <%= link_to "Add you first expense!", new_expense_path, class: "btn btn-success" %>
   <% else %>
-    <div>
+    <div class="d-flex justify-content-center">
         <%= donut_chart Expense.where(user: current_user, group_id: nil).group(:category).sum(:amount),
           class: 'box',
           height: "250px",
           width: "600px",
+          theme: 'dark',
           options: {
+            backgroundColor: '#0A4D68',
             legend: {
               orient: 'vertical', right: 'right',
               height: "250px",
               width: "250px",
+              backgroundColor: '#0A4D68',
+              textStyle: {
+                color: "#C4C4C5",
+
+              }
             },
             emphasis: {
               itemStyle: {
@@ -26,40 +33,39 @@
       %>
     </div>
 
-    <div>
-      <% total = 0 %>
-      <% @expenses.each do |expense| %>
-        <% total += expense.amount %>
-      <% end %>
-      <div class="d-flex justify-content-between">
-        <h5 class="font-weight-bold">Total Expenses $<%= total %></h5>
-        <%= link_to "Add Expense", new_expense_path, class: "btn btn-success" %>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div>
+            <% total = 0 %>
+            <% @expenses.each do |expense| %>
+              <% total += expense.amount %>
+            <% end %>
+            <div class="d-flex justify-content-between">
+              <h5 class="font-weight-bold text-success">Total Expenses $<%= total %></h5>
+              <%= link_to "Add Expense", new_expense_path, class: "btn btn-success" %>
+            </div>
+            <% @expenses.each do |expense| %>
+              <div class="card-product mb-3 rounded d-flex">
+                <div class="col-6">
+                  <p class="fs-8 ms-2 me-3"><%= expense.name.capitalize %></p>
+                </div>
+                <div class="col-4">
+                  <p class="fs-8 me-3">$<%= expense.amount %> <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= expense.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></p>
+                </div>
+                <div class="col-2 d-flex justify-content-end">
+                  <%= link_to edit_expense_path(expense) do %>
+                    <%= content_tag(:i, "", class: "fa-solid fa-pen-to-square text-dark me-1") %>
+                  <% end %>
+                  <%= link_to expense_path(expense), method: :delete,
+                      data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{expense.name} Expense?" } do %>
+                        <%= content_tag(:i, "", class: "fa-solid fa-trash-can text-dark me-2") %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
       </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Category</th>
-            <th scope="col">Amount(€)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @expenses.each do |expense| %>
-            <tr>
-                <td class="font-weight-bold"><%= expense.name.capitalize %></td>
-                <td class="text-secondary "><%= expense.category.capitalize %></td>
-                <td class="text-secondary"><%= expense.amount %> € <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= expense.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></td>
-                <td><%= link_to "Edit", edit_expense_path(expense),
-                class: "btn btn-success"%>
-                </td>
-                <td><%= link_to "Delete", expense_path(expense), method: :delete,
-                data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{expense.name} Expense?" },
-                class: "btn btn-danger" %>
-                </td>
-              </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  <% end %>
+    <% end %>
 </div>
