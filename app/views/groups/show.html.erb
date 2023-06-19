@@ -77,10 +77,15 @@
     <% current_user_divided_amount = {}  %>
     <% current_user_divided_amount = divided_user_amounts.extract!(current_user.email) %>
     <% divided_user_amounts.delete(current_user.email)%>
+
     <ul>
       <% divided_user_amounts.each do |key, amount| %>
-        <% if (amount - current_user_divided_amount.values.first) > 0 %>
-        <li><%= "You owe #{key} $ #{amount - current_user_divided_amount.values.first}" %></li>
+        <% if current_user_divided_amount.values.first.nil?%>
+          <% divided_user_amounts.each do |key, amount| %>
+            <li><%= "You owe #{key} $ #{amount}" %></li>
+          <% end %>
+        <% elsif (amount - current_user_divided_amount.values.first) > 0 %>
+          <li><%= "You owe #{key} $ #{amount - current_user_divided_amount.values.first}" %></li>
         <% else %>
           <li><%= "#{key} owes you $ #{(amount - current_user_divided_amount.values.first).abs}" %></li>
         <% end %>
