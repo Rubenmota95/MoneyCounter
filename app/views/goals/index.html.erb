@@ -12,11 +12,11 @@
     <% end %>
 
     <% if favorite_array.empty? %>
-      <h3 class="text-center"><%= @goals.first.name %></h3>
+      <h3 class="text-center text-success"><%= @goals.first.name %></h3>
 
       <div class="row justify-content-center">
         <div class="col-8 col-sm-6">
-          <img src="https://m.media-amazon.com/images/I/716+A9OrcSL._AC_SL1500_.jpg" alt="" class="img-fluid mx-auto d-block">
+          <img src="https://m.media-amazon.com/images/I/716+A9OrcSL._AC_SL1500_.jpg" alt="" class= "img-fluid mx-auto d-block rounded-4" >
         </div>
       </div>
 
@@ -32,7 +32,7 @@
         </div>
       </div>
 
-      <div class="d-flex justify-content-between">
+      <div class="d-flex justify-content-between text-success">
         <p>Saved Amount: $<%= current_user.balance %></p>
         <p><%= @goals.first.name %>'s Price: $<%= @goals.first.amount %></p>
       </div>
@@ -42,44 +42,51 @@
       </div>
 
       <% @goals.each do |goal| %>
-        <div class="card-product mb-3 rounded" style="">
+      <div class="card-product mb-3 rounded">
+        <div>
           <% if goal.photo.attached? %>
-            <td> <%= cl_image_tag goal.photo.key, style: "width: 150px; max-height: 100px;" %></td>
+            <%= cl_image_tag goal.photo.key %>
           <% else %>
-            <td><img src="https://m.media-amazon.com/images/I/716+A9OrcSL._AC_SL1500_.jpg" alt="" style="width: 150px; max-height: 100px;"></td>
+            <img src="https://m.media-amazon.com/images/I/716+A9OrcSL._AC_SL1500_.jpg">
           <% end %>
-          <div class="card-product-infos text-center">
-            <div class="d-flex">
-            <h2 class="ms-3"><%= goal.name %></h2>
-            <h2 style="margin-left: 200px;">$<%= goal.amount %> <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= goal.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></h2>
-            <%= link_to favorite_goal_path(goal), data: { turbo_method: :patch } do %>
-              <% if goal.favorite == false %>
-                <i class="fa-regular fa-star fs-4 ms-5 me-5 text-dark"></i>
-              <% else %>
-                <i class="fa-solid fa-star fs-4 ms-5 me-5 text-success"></i>
-              <% end %>
-            <% end %>
-            <%= link_to edit_goal_path(goal), class: "btn btn-success me-3", style: "width: 35px; padding: 10px" do %>
-              <%= content_tag(:i, "", class: "fa-solid fa-pencil-alt") %>
-            <% end %>
-            <%= link_to goal_path(goal), method: :delete,
-                data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{goal.name} Expense?" },
-                class: "btn btn-danger", style: "width: 35px; padding: 10px" do %>
-                  <%= content_tag(:i, "", class: "fa-solid fa-trash-can") %>
-            <% end %>
+        </div>
+        <div class="d-flex justify-content-between">
+          <div class="text-start">
+            <p class="fs-8 ms-3 me-3"><%= goal.name %></p>
           </div>
+          <div class="text-end">
+            <p class="fs-8 me-3">$<%= goal.amount %> <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= goal.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></p>
           </div>
         </div>
-      <% end %>
+        <div class="d-flex">
+          <%= link_to favorite_goal_path(goal), data: { turbo_method: :patch } do %>
+            <% if goal.favorite == false %>
+              <i class="fa-regular fa-star me-1 text-dark"></i>
+            <% else %>
+              <i class="fa-solid fa-star me-1 text-success"></i>
+            <% end %>
+          <% end %>
+          <%= link_to edit_goal_path(goal) do %>
+            <%= content_tag(:i, "", class: "fa-solid fa-pen-to-square text-dark me-1") %>
+          <% end %>
+          <%= link_to goal_path(goal), method: :delete,
+              data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{goal.name} Expense?" } do %>
+                <%= content_tag(:i, "", class: "fa-solid fa-trash-can text-dark me-2") %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+
     <% else %>
-      <h3 class="text-center"><%= favorite_array.first.name %></h3>
+      <h3 class="text-center text-success"><%= favorite_array.first.name %></h3>
 
       <div class="row justify-content-center">
         <div class="col-8 col-sm-6">
           <% if favorite_array.first.photo.attached? %>
             <%= cl_image_tag favorite_array.first.photo.key, class:"img-fluid mx-auto d-block rounded-4"%>
           <% else %>
-            <img src="https://m.media-amazon.com/images/I/716+A9OrcSL._AC_SL1500_.jpg" alt="" style="width: 150px; max-height: 100px;">
+            <img src="https://m.media-amazon.com/images/I/716+A9OrcSL._AC_SL1500_.jpg" class= "img-fluid mx-auto d-block rounded-4" alt="" style="width: 150px; max-height: 100px;">
           <% end %>
         </div>
       </div>
@@ -95,7 +102,7 @@
           <div class="progress-bar bg-success" role="progressbar" style="width: <%= percentage %>%;" aria-valuenow="<%= percentage %>" aria-valuemin="0" aria-valuemax="100"><%= percentage %>%</div>
         </div>
       </div>
-      <div class="d-flex justify-content-between">
+      <div class="d-flex justify-content-between text-success">
         <p>Saved Amount: $<%= current_user.balance %></p>
         <p><%= favorite_array.first.name %>'s Price: $<%= favorite_array.first.amount %></p>
       </div>
@@ -107,30 +114,31 @@
       <% @goals.each do |goal| %>
         <div class="card-product mb-3 rounded" style="">
           <% if goal.photo.attached? %>
-            <td> <%= cl_image_tag goal.photo.key, style: "width: 150px; max-height: 100px;" %></td>
+            <%= cl_image_tag goal.photo.key %>
           <% else %>
-            <td><img src="https://m.media-amazon.com/images/I/716+A9OrcSL._AC_SL1500_.jpg" alt="" style="width: 150px; max-height: 100px;"></td>
+            <img src="https://m.media-amazon.com/images/I/716+A9OrcSL._AC_SL1500_.jpg">
           <% end %>
-          <div class="card-product-infos">
+          <div class="card-product-infos text-center">
             <div class="d-flex">
-            <h2 class="ms-3"><%= goal.name %></h2>
-            <h2 style="margin-left: 200px;">$<%= goal.amount %>  <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= goal.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></h2>
-            <%= link_to favorite_goal_path(goal), data: { turbo_method: :patch } do %>
-              <% if goal.favorite == false %>
-                <i class="fa-regular fa-star fs-4 ms-5 me-5 text-dark"></i>
-              <% else %>
-                <i class="fa-solid fa-star fs-4 ms-5 me-5 text-success"></i>
-              <% end %>
-            <% end %>
-            <%= link_to edit_goal_path(goal), class: "btn btn-success me-3", style: "width: 35px; padding: 10px" do %>
-              <%= content_tag(:i, "", class: "fa-solid fa-pencil-alt") %>
-            <% end %>
-            <%= link_to goal_path(goal), method: :delete,
-                data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{goal.name} Expense?" },
-                class: "btn btn-danger", style: "width: 35px; padding: 10px" do %>
-                  <%= content_tag(:i, "", class: "fa-solid fa-trash-can") %>
-            <% end %>
-          </div>
+              <p class="fs-8 me-3" style="color: #84A7A1;"><%= goal.name %></p>
+              <p class="fs-8 me-3" style="color: #84A7A1;">$<%= goal.amount %> <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= goal.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></p>
+              <div class="d-flex justify-content-end">
+                <%= link_to favorite_goal_path(goal), data: { turbo_method: :patch } do %>
+                  <% if goal.favorite == false %>
+                    <i class="fa-regular fa-star me-1 text-dark"></i>
+                  <% else %>
+                    <i class="fa-solid fa-star me-1 text-success"></i>
+                  <% end %>
+                <% end %>
+                <%= link_to edit_goal_path(goal) do %>
+                  <%= content_tag(:i, "", class: "fa-solid fa-pen-to-square text-dark me-1") %>
+                <% end %>
+                <%= link_to goal_path(goal), method: :delete,
+                    data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{goal.name} Expense?" } do %>
+                      <%= content_tag(:i, "", class: "fa-solid fa-trash-can text-dark me-1") %>
+                <% end %>
+              </div>
+            </div>
           </div>
         </div>
       <% end %>

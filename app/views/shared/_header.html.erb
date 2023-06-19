@@ -1,7 +1,7 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+<div class="navbar navbar-expand-sm navbar-light navbar-lewagon border-bottom" style="background-color: #0A4D68;">
   <div class="container-fluid">
     <%= link_to "#", class: "navbar-brand" do %>
-      <i class="fa-solid fa-barcode fs-1" style="color: black; margin-right: 25px;"></i>
+      <i class="fa-solid fa-barcode fs-1" style="color: #1CDD87; margin-right: 25px;"></i>
     <% end %>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,7 +18,7 @@
             <% if current_user.photo.attached? %>
               <%= image_tag(current_user.photo, class: "avatar", style: "height: 50px; width: 50px; border-radius: 50%", "data-bs-toggle": "dropdown", "data-bs-target": "#navbarDropdown", "aria-haspopup": "true", "aria-expanded": "false") %>
             <% else %>
-              <i class="fa-regular fa-circle-user fs-1" style="color: black; margin-left: 25px;" data-bs-toggle= "dropdown", data-bs-target= "#navbarDropdown", aria-haspopup= "true", aria-expanded= "false"></i>
+              <i class="fa-regular fa-circle-user fs-1" style="color: #1CDD87; margin-left: 25px;" data-bs-toggle= "dropdown", data-bs-target= "#navbarDropdown", aria-haspopup= "true", aria-expanded= "false"></i>
             <% end  %>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <div>
