@@ -1,7 +1,7 @@
 <div class="container">
   <h3><%= @group.name  %>'s Expenses</h3>
   <%= render "shared/avatars_group" %>
-  <% if @my_expenses_group.empty? %>
+  <% if @group_expenses.empty? %>
     <p>You haven't spent any money!</p>
     <%= link_to "Add your first expense!", new_expense_path, class: "btn btn-success" %>
   <% else %>
