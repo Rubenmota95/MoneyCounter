@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :users
   end
 
-
+  resources :transactions
   resources :expenses
   resources :groups
   resources :incomes

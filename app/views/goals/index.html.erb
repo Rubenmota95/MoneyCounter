@@ -4,14 +4,7 @@
     <h5>You haven't setted any goal!</h5>
     <%= link_to "Set your first goal here", new_goal_path, class: "btn btn-success" %>
   <% else %>
-    <% favorite_array = [] %>
-    <% @goals.each do |goal| %>
-      <% if goal.favorite == true %>
-        <% favorite_array << goal %>
-      <% end %>
-    <% end %>
-
-    <% if favorite_array.empty? %>
+    <% if @favorite_array.empty? %>
       <h3 class="text-center text-success"><%= @goals.first.name %></h3>
 
       <div class="row justify-content-center">
@@ -20,15 +13,9 @@
         </div>
       </div>
 
-      <% current_user.balance = (current_user.incomes.sum(:amount) - current_user.expenses.sum(:amount)) %>
-      <% percentage = ((current_user.balance * 100) / @goals.first.amount).round() %>
-      <% if percentage > 100 %>
-        <% percentage = 100 %>
-      <% end %>
-
       <div class="shadow">
         <div class="progress mt-4 mb-2" style="height: 30px;">
-          <div class="progress-bar bg-success" role="progressbar" style="width: <%= percentage %>%;" aria-valuenow="<%= percentage %>" aria-valuemin="0" aria-valuemax="100"><%= percentage %>%</div>
+          <div class="progress-bar bg-success" role="progressbar" style="width: <%= @percentage %>%;" aria-valuenow="<%= @percentage %>" aria-valuemin="0" aria-valuemax="100"><%= @percentage %>%</div>
         </div>
       </div>
 
@@ -79,32 +66,26 @@
 
 
     <% else %>
-      <h3 class="text-center text-success"><%= favorite_array.first.name %></h3>
+      <h3 class="text-center text-success"><%= @favorite_array.first.name %></h3>
 
       <div class="row justify-content-center">
         <div class="col-8 col-sm-6">
-          <% if favorite_array.first.photo.attached? %>
-            <%= cl_image_tag favorite_array.first.photo.key, class:"img-fluid mx-auto d-block rounded-4"%>
+          <% if @favorite_array.first.photo.attached? %>
+            <%= cl_image_tag @favorite_array.first.photo.key, class:"img-fluid mx-auto d-block rounded-4"%>
           <% else %>
             <img src="https://m.media-amazon.com/images/I/716+A9OrcSL._AC_SL1500_.jpg" class= "img-fluid mx-auto d-block rounded-4" alt="" style="width: 150px; max-height: 100px;">
           <% end %>
         </div>
       </div>
 
-      <% current_user.balance = (current_user.incomes.sum(:amount) - current_user.expenses.sum(:amount)) %>
-      <% percentage = ((current_user.balance * 100) / favorite_array.first.amount).round() %>
-      <% if percentage > 100 %>
-        <% percentage = 100 %>
-      <% end %>
-
       <div class="shadow">
         <div class="progress mt-4 mb-2" style="height: 30px;">
-          <div class="progress-bar bg-success" role="progressbar" style="width: <%= percentage %>%;" aria-valuenow="<%= percentage %>" aria-valuemin="0" aria-valuemax="100"><%= percentage %>%</div>
+          <div class="progress-bar bg-success" role="progressbar" style="width: <%= @percentage %>%;" aria-valuenow="<%= @percentage %>" aria-valuemin="0" aria-valuemax="100"><%= @percentage %>%</div>
         </div>
       </div>
       <div class="d-flex justify-content-between text-success">
         <p>Saved Amount: $<%= current_user.balance %></p>
-        <p><%= favorite_array.first.name %>'s Price: $<%= favorite_array.first.amount %></p>
+        <p><%= @favorite_array.first.name %>'s Price: $<%= @favorite_array.first.amount %></p>
       </div>
 
       <div class="d-flex justify-content-end mt-3 mb-3">
