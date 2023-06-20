@@ -54,6 +54,12 @@ class TransactionsController < ApplicationController
     end
   end
 
+  def update_group_status
+    group_id = params[:group_id]
+    Transaction.where(group_id: group_id, group_status: false).update_all(group_status: true)
+    redirect_to group_path(group_id), notice: "Group status updated successfully."
+  end
+
   def destroy
     @transaction = Transaction.find(params[:id])
     @transaction.destroy

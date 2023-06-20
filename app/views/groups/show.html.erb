@@ -1,7 +1,7 @@
 <div class="container">
   <h3><%= @group.name  %>'s Expenses</h3>
   <%= render "shared/avatars_group" %>
-  <% if @group_expenses.empty? %>
+  <% if @group_expenses.empty? || @settled_group_expenses.empty? %>
     <p>You haven't spent any money!</p>
     <%= link_to "Add your first expense!", new_transaction_path, class: "btn btn-success" %>
   <% else %>
@@ -62,7 +62,6 @@
       <% end %>
     </ul>
     <p>Friends to receive money:</p>
-    <% user_amounts = @group_expenses.group(:email).sum(:amount) %>
     <ul>
       <% user_amounts.each do |key, value| %>
         <% difference = fair_amount - value %>
@@ -97,6 +96,10 @@
     <div>
       <div class="d-flex justify-content-between">
         <h5 class="font-weight-bold">Total Expenses $<%= total %></h5>
+        <%= form_tag update_group_status_transactions_path, method: :post do %>
+  <%= hidden_field_tag :group_id, @group.id %>
+  <%= submit_tag "Settle current expenses" %>
+<% end %>
         <%= link_to "Add Expense", new_transaction_path, class: "btn btn-success" %>
       </div>
       <table class="table">
@@ -110,6 +113,35 @@
         </thead>
         <tbody>
           <% @group_expenses.each do |expense| %>
+            <tr>
+                <td class="font-weight-bold"><%= expense.name.capitalize %></td>
+                <td class="text-secondary "><%= expense.category.capitalize %></td>
+                <td class="text-secondary"><%= expense.amount %> €</td>
+                <td class="text-secondary"><%= expense.user.email %></td>
+                <td><%= link_to "Edit", edit_transaction_path(transaction),
+                class: "btn btn-success"%>
+                </td>
+                <td><%= link_to "Delete", transaction_path(transaction), method: :delete,
+                data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{transaction.name} Expense?" },
+                class: "btn btn-danger" %>
+                </td>
+              </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+    <h5 class="font-weight-bold">Total Settled Expenses $<%= total %></h5>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Amount(€)</th>
+            <th scope="col">Friend</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @settled_group_expenses.each do |expense| %>
             <tr>
                 <td class="font-weight-bold"><%= expense.name.capitalize %></td>
                 <td class="text-secondary "><%= expense.category.capitalize %></td>

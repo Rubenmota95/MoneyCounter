@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
 
   resources :transactions
+  post 'transactions/update_group_status', to: 'transactions#update_group_status', as: 'update_group_status_transactions'
   resources :expenses
   resources :groups
   resources :incomes
