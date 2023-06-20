@@ -1,17 +1,16 @@
 <div class="container">
-  <h3 class="text-center mt-4 mb-4">Transactions</h3>
   <% if @transactions.empty? %>
     <h5>You haven't added any transaction yet!</h5>
     <%= link_to "Add your first transaction!", new_transaction_path, class: "btn" %>
   <% else %>
 
-    <div class="container">
+    <div class="container mt-2">
       <div class="row justify-content-center">
         <div class="col-12 col-lg-6">
           <%= form_tag(transactions_path, method: :get, class: "simple_form search") do %>
             <div class="search-form-control form-group">
               <div class="input-group">
-                <%= text_field_tag(:query, params[:query], class: "form-control", placeholder: 'Search Expenses or Incomes...') %>
+                <%= text_field_tag(:query, params[:query], class: "form-control", placeholder: 'Search...') %>
                 <button class="btn btn-flat rounded-end" type="submit">
                   <i class="fas fa-search"></i>
                 </button>
@@ -23,6 +22,28 @@
     </div>
 
     <div class="d-flex justify-content-center">
+      <div class="d-flex justify-content-center w-50 mb-1 mt-5">
+        <a href="/?query=expense" style="text-decoration: none;">
+            <div class="secondcard-category d-flex justify_content_center text-dark me-3 border border-dark p-2">
+              Expenses
+            </div>
+          </a>
+
+          <a href="/" style="text-decoration: none;">
+            <div class="secondcard-category d-flex justify_content_center text-dark me-3 border border-dark p-2">
+              Transactions
+            </div>
+          </a>
+
+          <a href="/?query=income" style="text-decoration: none;">
+            <div class="secondcard-category d-flex justify_content_center text-dark me-3 border border-dark p-2">
+              Incomes
+            </div>
+          </a>
+      </div>
+    </div>
+
+    <div class="d-flex">
 
       <% if params[:query] == "expense" || params[:query] == "income" %>
         <%= render "shared/donut_chart", data: @donut_chart_data %>
@@ -33,60 +54,43 @@
     </div>
 
     <div>
-      <div class="container">
+      <div class="container mt-4">
       <div class="row justify-content-center">
         <div class="col-md-8">
           <div>
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between mb-3">
               <h5 class="font-weight-bold">
               <% if current_user.balance < 0 %>
                 <strong>Total Balance: </strong><span class="text-danger">€<%= current_user.balance %></span></h5>
               <% else %>
                 <strong>Total Balance: </strong><span class="text-success">€<%= current_user.balance %></span></h5>
               <% end %>
-              <%= link_to "Add transaction", new_transaction_path, class: "btn btn-success" %>
+              <%= link_to "Add +", new_transaction_path, class: "btn btn-success" %>
             </div>
-            <div class="d-flex justify-content-between w-50 mb-3 text-decoration-none">
-            <a href="/?query=expense" style="text-decoration: none;">
-                <div class="secondcard-category d-flex justify_content_center">
-                  Expenses
+            <div class="d-flex flex-column-reverse">
+              <% @transactions.each do |transaction| %>
+                <div class="card-product mb-3 rounded d-flex"e="border-radius: 30px;">
+                  <div class="col-3">
+                    <p class="fs-8 ms-2 me-3"><%= transaction.name.capitalize %></p>
+                  </div>
+                  <div class="col-3">
+                    <p class="fs-8 ms-2 me-3"><%= transaction.kind %></p>
+                  </div>
+                  <div class="col-3">
+                    <p class="fs-8 me-3">$<%= transaction.amount %> <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= transaction.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></p>
+                  </div>
+                  <div class="col-3 d-flex justify-content-end">
+                    <%= link_to edit_transaction_path(transaction) do %>
+                      <%= content_tag(:i, "", class: "fa-solid fa-pen-to-square text-dark me-1") %>
+                    <% end %>
+                    <%= link_to transaction_path(transaction), method: :delete,
+                        data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{transaction.name} transaction?" } do %>
+                          <%= content_tag(:i, "", class: "fa-solid fa-trash-can text-dark me-2") %>
+                    <% end %>
+                  </div>
                 </div>
-              </a>
-
-              <a href="/" style="text-decoration: none;">
-                <div class="secondcard-category d-flex justify_content_center">
-                  Transactions
-                </div>
-              </a>
-
-              <a href="/?query=income" style="text-decoration: none;">
-                <div class="secondcard-category d-flex justify_content_cente">
-                  Incomes
-                </div>
-              </a>
+              <% end %>
             </div>
-            <% @transactions.each do |transaction| %>
-              <div class="card-product mb-3 rounded d-flex"e="border-radius: 30px;">
-                <div class="col-3">
-                  <p class="fs-8 ms-2 me-3"><%= transaction.name.capitalize %></p>
-                </div>
-                <div class="col-3">
-                  <p class="fs-8 ms-2 me-3"><%= transaction.kind %></p>
-                </div>
-                <div class="col-3">
-                  <p class="fs-8 me-3">$<%= transaction.amount %> <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= transaction.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></p>
-                </div>
-                <div class="col-3 d-flex justify-content-end">
-                  <%= link_to edit_transaction_path(transaction) do %>
-                    <%= content_tag(:i, "", class: "fa-solid fa-pen-to-square text-dark me-1") %>
-                  <% end %>
-                  <%= link_to transaction_path(transaction), method: :delete,
-                      data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{transaction.name} transaction?" } do %>
-                        <%= content_tag(:i, "", class: "fa-solid fa-trash-can text-dark me-2") %>
-                  <% end %>
-                </div>
-              </div>
-            <% end %>
           </div>
         </div>
       </div>

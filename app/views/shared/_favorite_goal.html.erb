@@ -29,7 +29,7 @@
 </div>
 <% @goals.each do |goal| %>
   <% percentages = (current_user.balance * 100) / goal.amount %>
-  <div class="progress" style="height: 5px; width: 400px;">
+  <div class="progress" style="height: 5px; max-width: 100%">
     <div class="progress-bar bg-success" role="progressbar" style="width: <%= percentages %>%;" aria-valuenow="<%= percentages %>" aria-valuemin="0" aria-valuemax="100"></div>
   </div>
   <div class="card-product mb-3 rounded">
