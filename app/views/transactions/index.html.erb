@@ -46,21 +46,21 @@
               <% end %>
               <%= link_to "Add transaction", new_transaction_path, class: "btn btn-success" %>
             </div>
-            <div>
-            <a href="/transactions?query=expense" style="text-decoration: none;">
+            <div class="d-flex justify-content-between w-50 mb-3 text-decoration-none">
+            <a href="/?query=expense" style="text-decoration: none;">
                 <div class="secondcard-category d-flex justify_content_center">
                   Expenses
                 </div>
               </a>
 
-              <a href="/transactions" style="text-decoration: none;">
+              <a href="/" style="text-decoration: none;">
                 <div class="secondcard-category d-flex justify_content_center">
                   Transactions
                 </div>
               </a>
 
-              <a href="/transactions?query=income" style="text-decoration: none;">
-                <div class="secondcard-category d-flex justify_content_center">
+              <a href="/?query=income" style="text-decoration: none;">
+                <div class="secondcard-category d-flex justify_content_cente">
                   Incomes
                 </div>
               </a>
