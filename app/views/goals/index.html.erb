@@ -1,5 +1,24 @@
 <div class="container">
   <h1 class="text-center mt-4 mb-4">My Goals</h1>
+
+  <div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-6">
+      <%= form_tag(goals_path, method: :get, class: "simple_form search") do %>
+        <div class="search-form-control form-group">
+          <div class="input-group">
+            <%= text_field_tag(:query, params[:query], class: "form-control", placeholder: 'Search goals...') %>
+            <button class="btn btn-flat rounded-end" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
   <% if @goals.empty? %>
     <h5>You haven't setted any goal!</h5>
     <%= link_to "Set your first goal here", new_goal_path, class: "btn btn-success" %>
@@ -57,7 +76,7 @@
             <%= content_tag(:i, "", class: "fa-solid fa-pen-to-square text-dark me-1") %>
           <% end %>
           <%= link_to goal_path(goal), method: :delete,
-              data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{goal.name} Expense?" } do %>
+              data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{goal.name} Goal?" } do %>
                 <%= content_tag(:i, "", class: "fa-solid fa-trash-can text-dark me-2") %>
           <% end %>
         </div>
@@ -115,7 +134,7 @@
                   <%= content_tag(:i, "", class: "fa-solid fa-pen-to-square text-dark me-1") %>
                 <% end %>
                 <%= link_to goal_path(goal), method: :delete,
-                    data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{goal.name} Expense?" } do %>
+                    data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{goal.name} Goal?" } do %>
                       <%= content_tag(:i, "", class: "fa-solid fa-trash-can text-dark me-1") %>
                 <% end %>
               </div>

@@ -1,7 +1,14 @@
 class GoalsController < ApplicationController
 
   def index
+    
     @goals = Goal.all.order(created_at: :asc).where(user: current_user)
+    if params[:query].present?
+      @goals =Goal.search_by_name_category_amount_frequency(params[:query])
+    else
+      @goals = Goal.all
+    end
+    
     @favorite_array = []
     @goals.each do |goal|
       if goal.favorite == true
@@ -69,7 +76,6 @@ class GoalsController < ApplicationController
     redirect_to goals_path
   end
 
-  # PATCH /goals/:id/favorite
   def favorite
     @goal = Goal.find(params[:id])
     current_user.goals.each do |goal|

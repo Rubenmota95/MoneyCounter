@@ -1,6 +1,5 @@
 class User < ApplicationRecord
   has_many :goals, dependent: :destroy
-  has_many :expenses, dependent: :destroy
   has_many :incomes, dependent: :destroy
   has_many :transactions, dependent: :destroy
   has_many :user_groups, dependent: :destroy

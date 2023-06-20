@@ -3,10 +3,10 @@
   <%= render "shared/avatars_group" %>
   <% if @group_expenses.empty? %>
     <p>You haven't spent any money!</p>
-    <%= link_to "Add your first expense!", new_expense_path, class: "btn btn-success" %>
+    <%= link_to "Add your first expense!", new_transaction_path, class: "btn btn-success" %>
   <% else %>
     <div>
-        <%= donut_chart Expense.where(group_id: @group).group(:category).sum(:amount),
+        <%= donut_chart Transaction.where(group_id: @group, kind: "Expense").group(:category).sum(:amount),
           class: 'box',
           height: "250px",
           width: "600px",
@@ -41,7 +41,7 @@
     <% user_amounts.each do |key, value| %>
       <li><%= "#{key}: $ #{value}" %></li>
     <% end %>
-    <% @group.users.select { |user| user.expenses.empty? }. each do |user| %>
+    <% @group.users.select { |user| user.transactions.where(kind: "Expense").empty? }. each do |user| %>
       <li><%= "#{user.email}: $ 0" %></li>
     <% end %>
     </ul>
@@ -54,7 +54,7 @@
           <li><%= "#{key}: $ #{difference}" %></li>
         <% end %>
       <% end %>
-      <% no_expense_users = @group.users.select { |user| user.expenses.empty? } %>
+      <% no_expense_users = @group.users.select { |user| user.transactions.where(kind: "Expense").empty? } %>
         <% if !no_expense_users.nil? %>
           <% no_expense_users.each do |user|  %>
             <li><%= "#{user.email}: $ #{fair_amount}" %></li>
@@ -97,7 +97,7 @@
     <div>
       <div class="d-flex justify-content-between">
         <h5 class="font-weight-bold">Total Expenses $<%= total %></h5>
-        <%= link_to "Add Expense", new_expense_path, class: "btn btn-success" %>
+        <%= link_to "Add Expense", new_transaction_path, class: "btn btn-success" %>
       </div>
       <table class="table">
         <thead>
@@ -115,13 +115,13 @@
                 <td class="text-secondary "><%= expense.category.capitalize %></td>
                 <td class="text-secondary"><%= expense.amount %> €</td>
                 <td class="text-secondary"><%= expense.user.email %></td>
-                <td><%= link_to "Edit", edit_expense_path(expense),
+                <%# <td><%= link_to "Edit", edit_transaction_path(transaction),
                 class: "btn btn-success"%>
-                </td>
-                <td><%= link_to "Delete", expense_path(expense), method: :delete,
-                data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{expense.name} Expense?" },
+                <%# </td> %>
+                <%# <td><%= link_to "Delete", transaction_path(transaction), method: :delete,
+                data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{transaction.name} Expense?" },
                 class: "btn btn-danger" %>
-                </td>
+                <%# </td> %>
               </tr>
           <% end %>
         </tbody>
