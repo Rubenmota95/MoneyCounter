@@ -6,6 +6,19 @@
       <li class="nav-item me-3 me-lg-1 mr-5 mb-4">
         <a class="nav-link">
         <div class="icon-wrapper">
+            <%= link_to root_path do %>
+              <% content_tag(:i, "", class: "fa-solid fa-house text-success") %>
+            <% end %>
+            <div class="name-icons">
+              <p class="text-success">Home</p>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <li class="nav-item me-3 me-lg-1 mr-5 mb-4">
+        <a class="nav-link">
+        <div class="icon-wrapper">
             <%= link_to goals_path do %>
               <% content_tag(:i, "", class: "fa-solid fa-trophy text-success") %>
             <% end %>
@@ -20,10 +33,10 @@
         <a class="nav-link">
             <div class="icon-wrapper">
               <%= link_to transactions_path do %>
-                <% content_tag(:i, "", class: "fa-solid fa-euro-sign text-success") %>
+                <% content_tag(:i, "", class: "fa-regular fa-square-plus text-success") %>
               <% end %>
               <div class="name-icons">
-                <p class="text-success">Payments</p>
+                <p class="text-success">Add</p>
             </div>
           </div>
         </a>
@@ -46,10 +59,10 @@
         <a class="nav-link" href="/users/">
           <div class="icon-wrapper">
             <%= link_to user_path(current_user) do %>
-              <% content_tag(:i, "", class: "fa-solid fa-gear text-success") %>
+              <% content_tag(:i, "", class: "fa-solid fa-circle-user text-success") %>
             <% end %>
             <div class="name-icons">
-              <p class="text-success">Settings</p>
+              <p class="text-success">Profile</p>
             </div>
           </div>
         </a>
