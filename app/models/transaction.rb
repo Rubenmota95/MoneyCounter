@@ -5,7 +5,9 @@ class Transaction < ApplicationRecord
   validates :kind, presence: true
 
   after_commit :update_user_balance, on: :create
-  after_save :create_expens_or_income
+
+  before_update :remove_transaction_balance
+  after_update :updated_user_transaction
 
   include PgSearch::Model
 
@@ -17,15 +19,19 @@ class Transaction < ApplicationRecord
 
   private
 
-  def create_expens_or_income
-    if self.kind == "Expense"
-      Expense.create(user: self.user, amount: self.amount, category: self.category, name: self.name, group: self.group)
-    else
-      Income.create(user: self.user, amount: self.amount, category: self.category, name: self.name)
-    end
+  def update_user_balance
+    amount = self.amount * (kind == "Expense" ? -1:1)
+    user.balance += amount
+    user.save
   end
 
-  def update_user_balance
+  def remove_transaction_balance
+    old_amount = attributes_in_database()[:amount] * (kind == "Income" ? -1:1)
+    user.balance += old_amount
+    user.save
+  end
+
+  def updated_user_transaction
     amount = self.amount * (kind == "Expense" ? -1:1)
     user.balance += amount
     user.save
