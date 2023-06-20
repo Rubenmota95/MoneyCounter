@@ -118,13 +118,13 @@
                 <td class="text-secondary "><%= expense.category.capitalize %></td>
                 <td class="text-secondary"><%= expense.amount %> €</td>
                 <td class="text-secondary"><%= expense.user.email %></td>
-                <td><%= link_to "Edit", edit_transaction_path(transaction),
+                <%# <td><%= link_to "Edit", edit_transaction_path(transaction),
                 class: "btn btn-success"%>
-                </td>
-                <td><%= link_to "Delete", transaction_path(transaction), method: :delete,
+                <%# </td> %>
+                <%# <td><%= link_to "Delete", transaction_path(transaction), method: :delete,
                 data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{transaction.name} Expense?" },
                 class: "btn btn-danger" %>
-                </td>
+                <%# </td> %>
               </tr>
           <% end %>
         </tbody>
