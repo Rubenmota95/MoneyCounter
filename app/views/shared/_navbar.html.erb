@@ -7,10 +7,10 @@
         <a class="nav-link">
         <div class="icon-wrapper">
             <%= link_to root_path do %>
-              <% content_tag(:i, "", class: "fa-solid fa-house text-success") %>
+              <% content_tag(:i, "", class: "fa-solid fa-house text-dark") %>
             <% end %>
             <div class="name-icons">
-              <p class="text-success">Home</p>
+              <p>Home</p>
             </div>
           </div>
         </a>
@@ -20,10 +20,10 @@
         <a class="nav-link">
         <div class="icon-wrapper">
             <%= link_to goals_path do %>
-              <% content_tag(:i, "", class: "fa-solid fa-trophy text-success") %>
+              <% content_tag(:i, "", class: "fa-solid fa-trophy text-dark") %>
             <% end %>
             <div class="name-icons">
-              <p class="text-success">Goals</p>
+              <p>Goals</p>
             </div>
           </div>
         </a>
@@ -32,11 +32,11 @@
       <li class="nav-item me-3 me-lg-1 mr-5 mb-4">
         <a class="nav-link">
             <div class="icon-wrapper">
-              <%= link_to transactions_path do %>
-                <% content_tag(:i, "", class: "fa-regular fa-square-plus text-success") %>
+              <%= link_to new_transaction_path do %>
+                <% content_tag(:i, "", class: "fa-regular fa-square-plus text-dark") %>
               <% end %>
               <div class="name-icons">
-                <p class="text-success">Add</p>
+                <p>Add</p>
             </div>
           </div>
         </a>
@@ -46,10 +46,10 @@
         <a class="nav-link">
           <div class="icon-wrapper">
             <%= link_to groups_path do %>
-              <% content_tag(:i, "", class: "fa-solid fa-people-group text-success") %>
+              <% content_tag(:i, "", class: "fa-solid fa-people-group text-dark") %>
             <% end %>
             <div class="name-icons">
-              <p class="text-success">Groups</p>
+              <p>Groups</p>
             </div>
           </div>
         </a>
@@ -59,10 +59,10 @@
         <a class="nav-link" href="/users/">
           <div class="icon-wrapper">
             <%= link_to user_path(current_user) do %>
-              <% content_tag(:i, "", class: "fa-solid fa-circle-user text-success") %>
+              <% content_tag(:i, "", class: "fa-solid fa-circle-user text-dark") %>
             <% end %>
             <div class="name-icons">
-              <p class="text-success">Profile</p>
+              <p>Profile</p>
             </div>
           </div>
         </a>

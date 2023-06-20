@@ -8,7 +8,6 @@ class GoalsController < ApplicationController
     else
       @goals = Goal.all
     end
-
     @favorite_array = []
     @goals.each do |goal|
       @favorite_array << goal if goal.favorite == true

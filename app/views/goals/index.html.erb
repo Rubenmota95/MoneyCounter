@@ -23,7 +23,7 @@
     <%= link_to "Set your first goal here", new_goal_path, class: "btn btn-success" %>
   <% else %>
     <% if @favorite_array.empty? %>
-      <h3 class="text-center text-success"><%= @goals.first.name %></h3>
+      <h3 class="text-center"><%= @goals.first.name %></h3>
 
       <div class="row justify-content-center">
         <div class="col-8 col-sm-6">
@@ -37,9 +37,14 @@
         </div>
       </div>
 
-      <div class="d-flex justify-content-between text-success">
-        <p>Saved Amount: $<%= current_user.balance %></p>
-        <p><%= @goals.first.name %>'s Price: $<%= @goals.first.amount %></p>
+      <div class="d-flex justify-content-between">
+
+      <% if current_user.balance < 0 %>
+        <p><strong>Saved Amount: </strong><span class="text-danger">€<%= current_user.balance %></span></p>
+      <% else %>
+        <p><strong>Saved Amount: </strong><span class="text-success">€<%= current_user.balance %></span></p>
+      <% end %>
+        <p></p><strong><%= @goals.first.name %>'s Price:<strong> <span>$<%= @goals.first.amount %></span></p>
       </div>
 
       <div class="d-flex justify-content-end mt-3 mb-3">
@@ -88,7 +93,7 @@
 
 
     <% else %>
-      <h3 class="text-center text-success"><%= @favorite_array.first.name %></h3>
+      <h3 class="text-center"><%= @favorite_array.first.name %></h3>
 
       <div class="row justify-content-center">
         <div class="col-8 col-sm-6">
@@ -105,43 +110,52 @@
           <div class="progress-bar bg-success" role="progressbar" style="width: <%= @percentage %>%;" aria-valuenow="<%= @percentage %>" aria-valuemin="0" aria-valuemax="100"><%= @percentage %>%</div>
         </div>
       </div>
-      <div class="d-flex justify-content-between text-success">
-        <p>Saved Amount: $<%= current_user.balance %></p>
-        <p><%= @favorite_array.first.name %>'s Price: $<%= @favorite_array.first.amount %></p>
+      <div class="d-flex justify-content-between">
+        <% if current_user.balance < 0 %>
+          <p><strong>Saved Amount: </strong><span class="text-danger">€<%= current_user.balance %></span></p>
+        <% else %>
+          <p><strong>Saved Amount: </strong><span class="text-success">€<%= current_user.balance %></span></p>
+        <% end %>
+          <p></p><strong><%= @goals.first.name %>'s Price:<strong> <span class="">$<%= @goals.first.amount %></span></p>
       </div>
 
       <div class="d-flex justify-content-end mt-3 mb-3">
         <%= link_to "Add Goal", new_goal_path, class: "btn btn-success" %>
       </div>
-
       <% @goals.each do |goal| %>
+        <% percentage = (current_user.balance * 100) / goal.amount %>
+        <div class="progress" style="height: 5px; width: 400px;">
+          <div class="progress-bar bg-success" role="progressbar" style="width: <%= percentage %>%;" aria-valuenow="<%= percentage %>" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
         <div class="card-product mb-3 rounded" style="">
           <% if goal.photo.attached? %>
             <%= cl_image_tag goal.photo.key %>
           <% else %>
             <img src="https://m.media-amazon.com/images/I/716+A9OrcSL._AC_SL1500_.jpg">
           <% end %>
-          <div class="card-product-infos text-center">
-            <div class="d-flex">
-              <p class="fs-8 me-3" style="color: #84A7A1;"><%= goal.name %></p>
-              <p class="fs-8 me-3" style="color: #84A7A1;">$<%= goal.amount %> <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= goal.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></p>
-              <div class="d-flex justify-content-end">
-                <%= link_to favorite_goal_path(goal), data: { turbo_method: :patch } do %>
-                  <% if goal.favorite == false %>
-                    <i class="fa-regular fa-star me-1 text-dark"></i>
-                  <% else %>
-                    <i class="fa-solid fa-star me-1 text-success"></i>
-                  <% end %>
-                <% end %>
-                <%= link_to edit_goal_path(goal) do %>
-                  <%= content_tag(:i, "", class: "fa-solid fa-pen-to-square text-dark me-1") %>
-                <% end %>
-                <%= link_to goal_path(goal), method: :delete,
-                    data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{goal.name} Goal?" } do %>
-                      <%= content_tag(:i, "", class: "fa-solid fa-trash-can text-dark me-1") %>
-                <% end %>
-              </div>
-            </div>
+          <div class="d-flex justify-content-between">
+          <div class="text-start">
+            <p class="fs-8 ms-3 me-3"><%= goal.name %></p>
+          </div>
+          <div class="text-end">
+            <p class="fs-8 me-3">$<%= goal.amount %> <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= goal.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></p>
+          </div>
+          </div>
+          <div class="d-flex">
+            <%= link_to favorite_goal_path(goal), data: { turbo_method: :patch } do %>
+              <% if goal.favorite == false %>
+                <i class="fa-regular fa-star me-1 text-dark"></i>
+              <% else %>
+                <i class="fa-solid fa-star me-1 text-success"></i>
+              <% end %>
+            <% end %>
+            <%= link_to edit_goal_path(goal) do %>
+              <%= content_tag(:i, "", class: "fa-solid fa-pen-to-square text-dark me-1") %>
+            <% end %>
+            <%= link_to goal_path(goal), method: :delete,
+                data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{goal.name} Goal?" } do %>
+                  <%= content_tag(:i, "", class: "fa-solid fa-trash-can text-dark me-2") %>
+            <% end %>
           </div>
         </div>
       <% end %>
