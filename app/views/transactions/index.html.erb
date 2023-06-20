@@ -22,21 +22,15 @@
       </div>
     </div>
 
-    <% balance = 0 %>
-    <% data = [] %>
-    <% Transaction.where(user: current_user).order(:created_at).each_with_index do |transaction, index| %>
-      <% balance += (transaction.kind == 'Expense' ? -1 : 1) * transaction.amount %>
-      <% data << { x: index + 1, y: balance } %>
-    <% end %>
+    <div class="d-flex justify-content-center">
 
-    <%= area_chart [
-      {
-        name: 'Balance',
-        data: data.map { |d| [d[:x], d[:y]] },
-      }
-    ]
-    %>
+      <% if params[:query] == "expense" || params[:query] == "income" %>
+        <%= render "shared/donut_chart", data: @donut_chart_data %>
+      <% else %>
+        <%= render "shared/area_chart", data: @area_chart_data %>
+      <% end %>
 
+    </div>
 
     <div>
       <div class="container">
@@ -46,6 +40,25 @@
             <div class="d-flex justify-content-between">
               <h5 class="font-weight-bold text-success">Total Balance: $<%= current_user.balance %></h5>
               <%= link_to "Add transaction", new_transaction_path, class: "btn btn-success" %>
+            </div>
+            <div>
+            <a href="/transactions?query=expense" style="text-decoration: none;">
+                <div class="secondcard-category d-flex justify_content_center">
+                  Expenses
+                </div>
+              </a>
+
+              <a href="/transactions" style="text-decoration: none;">
+                <div class="secondcard-category d-flex justify_content_center">
+                  Transactions
+                </div>
+              </a>
+
+              <a href="/transactions?query=income" style="text-decoration: none;">
+                <div class="secondcard-category d-flex justify_content_center">
+                  Incomes
+                </div>
+              </a>
             </div>
             <% @transactions.each do |transaction| %>
               <div class="card-product mb-3 rounded d-flex"e="border-radius: 30px;">

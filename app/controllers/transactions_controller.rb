@@ -3,9 +3,17 @@ class TransactionsController < ApplicationController
   def index
     @transactions = Transaction.where(user: current_user, group_id: nil)
     if params[:query].present?
-      @transactions =Transaction.search_by_name_kind_category_amount_frequency(params[:query])
+      @transactions = Transaction.search_by_name_kind_category_amount_frequency(params[:query])
+      if params[:query] == "expense" || params[:query] == "income"
+        @donut_chart_data = Transaction.where(user: current_user, group_id: nil, kind: params[:query].capitalize).group(:category).sum(:amount)
+      end
     else
-      @transactions = Transaction.all
+      @transactions = Transaction.where(user: current_user).order(:created_at)
+      balance = 0
+      @area_chart_data = @transactions.map do |transaction|
+        balance += (transaction.kind == 'Expense' ? -1 : 1) * transaction.amount
+        [@transactions.index(transaction), balance]
+      end
     end
   end
 
@@ -44,10 +52,7 @@ class TransactionsController < ApplicationController
 
   def update
     @transaction = Transaction.find(params[:id])
-    balance_change = @transaction.amount - transaction_params(:amount)
     if @transaction.update(transaction_params)
-      @transaction.user.balance += balance_change
-      @transaction.user.save
       redirect_to transactions_path
     else
       render :edit, status: :unprocessable_entity
