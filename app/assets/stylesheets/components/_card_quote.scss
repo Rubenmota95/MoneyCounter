@@ -50,7 +50,7 @@
 .card-product {
   overflow: hidden;
   height: 50px;
-  width: 400px;
+  max-width: 100%;
   background: #C2DEDC;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   display: flex;
