@@ -57,7 +57,7 @@
             <%= content_tag(:i, "", class: "fa-solid fa-pen-to-square text-dark me-1") %>
           <% end %>
           <%= link_to goal_path(goal), method: :delete,
-              data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{goal.name} Expense?" } do %>
+              data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{goal.name} Goal?" } do %>
                 <%= content_tag(:i, "", class: "fa-solid fa-trash-can text-dark me-2") %>
           <% end %>
         </div>
@@ -115,7 +115,7 @@
                   <%= content_tag(:i, "", class: "fa-solid fa-pen-to-square text-dark me-1") %>
                 <% end %>
                 <%= link_to goal_path(goal), method: :delete,
-                    data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{goal.name} Expense?" } do %>
+                    data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{goal.name} Goal?" } do %>
                       <%= content_tag(:i, "", class: "fa-solid fa-trash-can text-dark me-1") %>
                 <% end %>
               </div>
