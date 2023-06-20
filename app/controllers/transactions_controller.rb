@@ -52,10 +52,7 @@ class TransactionsController < ApplicationController
 
   def update
     @transaction = Transaction.find(params[:id])
-    balance_change = @transaction.amount - transaction_params(:amount)
     if @transaction.update(transaction_params)
-      @transaction.user.balance += balance_change
-      @transaction.user.save
       redirect_to transactions_path
     else
       render :edit, status: :unprocessable_entity
