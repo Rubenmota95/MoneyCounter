@@ -8,19 +8,26 @@
 
 @import url('https://fonts.googleapis.com/css?family=Fira+Mono:400');
 
+img {
+  width: 83%;
+  object-fit: cover;
+  object-position: 25% 25%;
+  filter: grayscale(1);
+}
 
   body{
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  background: #131313;
-  color: #fff;
-  font-size: 24px;
-  font-family: 'Fira Mono', monospace;
-  padding-left: 20px;
+    display: flex;
+    width: 100vw;
+    height: 85vh;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    background: #000000;
+    color: #fff;
+    font-size: 24px;
+    font-family: 'Fira Mono', monospace;
+    padding-left: 20px;
+    flex-direction: column-reverse;
 }
 
 div{
@@ -77,6 +84,7 @@ title {font-size: 50px;
   </style>
 </head>
 
+
 <body class="rails-default-error-page">
   <!-- This file lives in public/404.html -->
   <div class="dialog">
@@ -86,5 +94,6 @@ title {font-size: 50px;
       <p>You may have mistyped the address or the page may have moved.</p>
     </div>
   </div>
+  <img src="https://freefrontend.com/assets/img/html-funny-404-pages/HTML-404-Error-Page.png" alt="ghost 404">
 </body>
 </html>
