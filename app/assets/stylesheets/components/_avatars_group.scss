@@ -1,0 +1,18 @@
+.container-avatar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-right: 25px;
+}
+ .container-avatar img {
+  border: 1.5px solid rgb(161, 161, 161);
+  transition: all 400ms ease;
+  overflow-clip-margin: content-box;
+  overflow: clip;
+  margin-right: -18px;
+  width: 45px;
+ }
+
+ .container-avatar img:hover {
+  width: 52px;
+ }
