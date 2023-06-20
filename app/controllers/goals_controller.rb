@@ -1,20 +1,19 @@
 class GoalsController < ApplicationController
 
   def index
-    
+
     @goals = Goal.all.order(created_at: :asc).where(user: current_user)
     if params[:query].present?
-      @goals =Goal.search_by_name_category_amount_frequency(params[:query])
+      @goals = Goal.search_by_name_category_amount_frequency(params[:query])
     else
       @goals = Goal.all
     end
-    
+
     @favorite_array = []
     @goals.each do |goal|
-      if goal.favorite == true
-        @favorite_array << goal
-      end
+      @favorite_array << goal if goal.favorite == true
     end
+
     if @favorite_array.empty?
       @percentage = ((current_user.balance * 100) / @goals.first.amount).round()
       if @percentage > 100
@@ -22,7 +21,6 @@ class GoalsController < ApplicationController
       elsif @percentage < 0
         @percentage = 0
       end
-      return @percentage
     else
       @percentage = ((current_user.balance * 100) / @favorite_array.first.amount).round()
       if @percentage > 100
@@ -30,7 +28,6 @@ class GoalsController < ApplicationController
       elsif @percentage < 0
         @percentage = 0
       end
-      return @percentage
     end
   end
 

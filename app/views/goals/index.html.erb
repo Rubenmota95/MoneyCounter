@@ -18,7 +18,6 @@
   </div>
 </div>
 
-
   <% if @goals.empty? %>
     <h5>You haven't setted any goal!</h5>
     <%= link_to "Set your first goal here", new_goal_path, class: "btn btn-success" %>
@@ -48,6 +47,10 @@
       </div>
 
       <% @goals.each do |goal| %>
+      <% percentage = (current_user.balance * 100) / goal.amount %>
+      <div class="progress" style="height: 5px; width: 400px;">
+        <div class="progress-bar bg-success" role="progressbar" style="width: <%= percentage %>%;" aria-valuenow="<%= percentage %>" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
       <div class="card-product mb-3 rounded">
         <div>
           <% if goal.photo.attached? %>
