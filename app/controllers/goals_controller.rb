@@ -1,14 +1,35 @@
 class GoalsController < ApplicationController
 
   def index
-    @goals = Goal.all.order(created_at: :asc).where(user: current_user)
 
+    @goals = Goal.all.order(created_at: :asc).where(user: current_user)
     if params[:query].present?
-      @goals =Goal.search_by_name_category_amount_frequency(params[:query])
+      @goals = Goal.search_by_name_category_amount_frequency(params[:query])
     else
-      @goals = Goal.all
+      @goals = Goal.all.order(created_at: :asc).where(user: current_user)
     end
-    
+    @favorite_array = []
+    @goals.each do |goal|
+      @favorite_array << goal if goal.favorite == true
+    end
+
+    if !@goals.empty?
+      if @favorite_array.empty?
+        @percentage = ((current_user.balance * 100) / @goals.first.amount).round()
+        if @percentage > 100
+          @percentage = 100
+        elsif @percentage < 0
+          @percentage = 0
+        end
+      else
+        @percentage = ((current_user.balance * 100) / @favorite_array.first.amount).round()
+        if @percentage > 100
+          @percentage = 100
+        elsif @percentage < 0
+          @percentage = 0
+        end
+      end
+    end
   end
 
   def show
@@ -53,7 +74,6 @@ class GoalsController < ApplicationController
     redirect_to goals_path
   end
 
-  # PATCH /goals/:id/favorite
   def favorite
     @goal = Goal.find(params[:id])
     current_user.goals.each do |goal|

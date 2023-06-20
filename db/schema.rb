@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema[7.0].define(version: 2023_06_20_103113) do
+=======
+ActiveRecord::Schema[7.0].define(version: 2023_06_19_133236) do
+>>>>>>> master
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -85,6 +89,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_20_103113) do
     t.index ["user_id"], name: "index_incomes_on_user_id"
   end
 
+  create_table "transactions", force: :cascade do |t|
+    t.float "amount"
+    t.string "category"
+    t.string "name"
+    t.string "frequency"
+    t.string "kind"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "group_id"
+    t.index ["group_id"], name: "index_transactions_on_group_id"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
+  end
+
   create_table "user_groups", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "group_id", null: false
@@ -104,8 +122,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_20_103113) do
     t.datetime "updated_at", null: false
     t.string "first_name"
     t.string "last_name"
-    t.float "balance"
     t.string "username"
+    t.float "balance", default: 0.0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -116,6 +134,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_20_103113) do
   add_foreign_key "expenses", "users"
   add_foreign_key "goals", "users"
   add_foreign_key "incomes", "users"
+  add_foreign_key "transactions", "groups"
+  add_foreign_key "transactions", "users"
   add_foreign_key "user_groups", "groups"
   add_foreign_key "user_groups", "users"
 end

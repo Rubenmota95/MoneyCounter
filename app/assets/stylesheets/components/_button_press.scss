@@ -2,11 +2,31 @@
   color:white;
   font-family:inherit;
   font-size: inherit;
-  background: rgb(0, 0, 0);
+  background: black;
   padding: 0.3rem 3.4rem;
-  border: 1px solid black;
   margin-right: 2.6rem;
   box-shadow: 0 0 0 black;
   transition: all 0.2s;
   border-radius: 7px;
+}
+
+.btn:last-child {
+  margin: 0;
+}
+
+.btn:hover {
+  box-shadow: 0.4rem 0.4rem 0 #07874d;
+  transform: translate(-0.4rem, -0.4rem);
+}
+
+.btn-danger:hover {
+  box-shadow: 0.4rem 0.4rem 0 #870707;
+  transform: translate(-0.4rem, -0.4rem);
+}
+
+
+.btn:active {
+  box-shadow: 0 0 0 black;
+  transform: translate(0, 0);
+  border: 2px solid black;
 }

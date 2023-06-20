@@ -9,13 +9,11 @@
 require 'faker'
 
 puts "Deleting Database...."
-User.delete_all
 Goal.delete_all
-Expense.delete_all
-Income.delete_all
+Transaction.delete_all
+User.delete_all
 puts "Creating Database...."
 
-# Create the test user
 test_user = User.create!(
   email: 'test@example.com',
   password: 'password',
@@ -23,45 +21,39 @@ test_user = User.create!(
 )
 
 GOAL_CATEGORIES = ['Product', 'Financial']
-EXPENSE_CATEGORIES = ['Food',
+CATEGORIES = ['Food',
   'Health',
   'Entertainment',
   'Travel',
   'Personal Care',
   'Education',
   'Utilities',
+  'Salary',
+  'Investments',
+  'Rental Income',
+  'Freelance',
   'Other...']
-INCOME_CATEGORIES = ['Salary', 'Investments', 'Rental Income', 'Freelance']
+TYPE = ['Expense', 'Income']
 FREQUENCIES = ["One-time", "Monthly", "Weekly"]
 
-# Delete expenses associated with the test user
-test_user.expenses.delete_all
+test_user.transactions.delete_all
 
-# Create goals for the user
-5.times do
+i = 0
+5.times do |i|
   test_user.goals.create!(
-    name: Faker::Appliance.equipment,
+    name: "Goal #{i + 1}",
     amount: rand(1000..10000),
     category: GOAL_CATEGORIES.sample
   )
 end
 
-# Create expenses for the user
-20.times do
-  test_user.expenses.create!(
-    amount: rand(10..100),
-    category: EXPENSE_CATEGORIES.sample,
-    name: Faker::Commerce.material,
-    frequency: FREQUENCIES.sample
-  )
-end
-
-# Create incomes for the user
-10.times do
-  test_user.incomes.create!(
-    amount: rand(100..500),
-    category: INCOME_CATEGORIES.sample,
-    name: Faker::Commerce.material,
+i = 0
+40.times do |i|
+  test_user.transactions.create!(
+    amount: rand(10..150),
+    category: CATEGORIES.sample,
+    name: "Transaction #{i + 1}",
+    kind: TYPE.sample,
     frequency: FREQUENCIES.sample
   )
 end
