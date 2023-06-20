@@ -37,9 +37,14 @@
         </div>
       </div>
 
-      <div class="d-flex justify-content-between text-success">
-        <p>Saved Amount: $<%= current_user.balance %></p>
-        <p><%= @goals.first.name %>'s Price: $<%= @goals.first.amount %></p>
+      <div class="d-flex justify-content-between">
+
+      <% if current_user.balance < 0 %>
+        <p><strong>Saved Amount: </strong><span class="text-danger">€<%= current_user.balance %></span></p>
+      <% else %>
+        <p><strong>Saved Amount: </strong><span class="text-success">€<%= current_user.balance %></span></p>
+      <% end %>
+        <p></p><strong><%= @goals.first.name %>'s Price:<strong> <span>$<%= @goals.first.amount %></span></p>
       </div>
 
       <div class="d-flex justify-content-end mt-3 mb-3">
@@ -105,9 +110,13 @@
           <div class="progress-bar bg-success" role="progressbar" style="width: <%= @percentage %>%;" aria-valuenow="<%= @percentage %>" aria-valuemin="0" aria-valuemax="100"><%= @percentage %>%</div>
         </div>
       </div>
-      <div class="d-flex justify-content-between text-success">
-        <p>Saved Amount: $<%= current_user.balance %></p>
-        <p><%= @favorite_array.first.name %>'s Price: $<%= @favorite_array.first.amount %></p>
+      <div class="d-flex justify-content-between">
+        <% if current_user.balance < 0 %>
+          <p><strong>Saved Amount: </strong><span class="text-danger">€<%= current_user.balance %></span></p>
+        <% else %>
+          <p><strong>Saved Amount: </strong><span class="text-success">€<%= current_user.balance %></span></p>
+        <% end %>
+          <p></p><strong><%= @goals.first.name %>'s Price:<strong> <span class="">$<%= @goals.first.amount %></span></p>
       </div>
 
       <div class="d-flex justify-content-end mt-3 mb-3">
