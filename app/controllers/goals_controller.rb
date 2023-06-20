@@ -13,19 +13,21 @@ class GoalsController < ApplicationController
       @favorite_array << goal if goal.favorite == true
     end
 
-    if @favorite_array.empty?
-      @percentage = ((current_user.balance * 100) / @goals.first.amount).round()
-      if @percentage > 100
-        @percentage = 100
-      elsif @percentage < 0
-        @percentage = 0
-      end
-    else
-      @percentage = ((current_user.balance * 100) / @favorite_array.first.amount).round()
-      if @percentage > 100
-        @percentage = 100
-      elsif @percentage < 0
-        @percentage = 0
+    if !@goals.empty?
+      if @favorite_array.empty?
+        @percentage = ((current_user.balance * 100) / @goals.first.amount).round()
+        if @percentage > 100
+          @percentage = 100
+        elsif @percentage < 0
+          @percentage = 0
+        end
+      else
+        @percentage = ((current_user.balance * 100) / @favorite_array.first.amount).round()
+        if @percentage > 100
+          @percentage = 100
+        elsif @percentage < 0
+          @percentage = 0
+        end
       end
     end
   end
