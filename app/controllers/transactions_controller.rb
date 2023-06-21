@@ -65,6 +65,13 @@ class TransactionsController < ApplicationController
     redirect_to group_path(group_id), notice: "Group status updated successfully."
   end
 
+  def settle_events
+    group = Group.find(params[:group_id])
+
+    Transaction.new(name: "#{group.name} from #{user.email}" , amount: , kind: "Income", group: group, category: "Settlement", user_id: )
+    Transaction.new(name: "#{group.name} to #{user.email}" , amount: , kind: "Expense", category: "Settlement", user_id: )
+  end
+
   def destroy
     @transaction = Transaction.find(params[:id])
     @transaction.destroy

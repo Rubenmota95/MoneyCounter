@@ -28,78 +28,39 @@
     </div>
 
   <div>
-    <% total = 0 %>
-    <% @group_expenses.each do |expense| %>
-      <% total += expense.amount %>
-    <% end %>
-    <% fair_amount = total / @group.users.count %>
-    <p>Fair Amount per Friend: $ <%= fair_amount %></p>
+    <%= @group.total %>
+    <p>Fair Amount per Friend: $ <%= @group.fair_amount %></p>
 
-    <p>Actual Amount per Friend:</p>
-    <% user_amounts = @group_expenses.group(:email).sum(:amount) %>
+    <p>Actual Expenses Total per Friend:</p>
     <ul>
-    <% user_amounts.each do |key, value| %>
-      <li><%= "#{key}: $ #{value}" %></li>
-    <% end %>
-    <% @group.users.select { |user| user.transactions.where(kind: "Expense").empty? }. each do |user| %>
-      <li><%= "#{user.email}: $ 0" %></li>
-    <% end %>
-    </ul>
-    <p>To be paid to friends:</p>
+    <% @group.user_amounts_diff.each do |el| %>
 
-    <ul>
-      <% user_amounts.each do |key, value| %>
-        <% difference = fair_amount - value %>
-        <% if difference.positive? %>
-          <li><%= "#{key}: $ #{difference}" %></li>
-        <% end %>
-      <% end %>
-      <% no_expense_users = @group.users.select { |user| user.transactions.where(kind: "Expense").empty? } %>
-        <% if !no_expense_users.nil? %>
-          <% no_expense_users.each do |user|  %>
-            <li><%= "#{user.email}: $ #{fair_amount}" %></li>
-        <% end %>
-      <% end %>
+      <li><%= "#{el[:user].email}: $ #{el[:full_amount]}" %></li>
+    <% end %>
+
     </ul>
-    <p>Friends to receive money:</p>
-    <ul>
-      <% user_amounts.each do |key, value| %>
-        <% difference = fair_amount - value %>
-        <% if difference.negative? %>
-          <li><%= "#{key}: $ #{difference.abs}" %></li>
-        <% end %>
-      <% end %>
-    </ul>
+
+
 
     <p>Who pays to who:</p>
-    <% divided_user_amounts = user_amounts.transform_values { |value| value / @group.users.count } %>
-    <% current_user_divided_amount = {}  %>
-    <% current_user_divided_amount = divided_user_amounts.extract!(current_user.email) %>
-    <% divided_user_amounts.delete(current_user.email)%>
-
     <ul>
-      <% divided_user_amounts.each do |key, amount| %>
-        <% if current_user_divided_amount.values.first.nil?%>
-          <% divided_user_amounts.each do |key, amount| %>
-            <li><%= "You owe #{key} $ #{amount}" %></li>
-          <% end %>
-        <% elsif (amount - current_user_divided_amount.values.first) > 0 %>
-          <li><%= "You owe #{key} $ #{amount - current_user_divided_amount.values.first}" %></li>
-        <% else %>
-          <li><%= "#{key} owes you $ #{(amount - current_user_divided_amount.values.first).abs}" %></li>
-        <% end %>
+      <% @group.who_to_who.each do |txn| %>
+        <li><%= "#{txn[:payer].email} owes #{txn[:receiver].email}  $ #{txn[:transaction].amount}" %></li>
+        <%# <li><%= "You owe #{key} $ #{amount - @current_user_divided_amount.values.first}" %></li>
       <% end %>
     </ul>
 
-  </div>
+
 
     <div>
       <div class="d-flex justify-content-between">
-        <h5 class="font-weight-bold">Total Expenses $<%= total %></h5>
+        <h5 class="font-weight-bold">@total Expenses $<%= @total %></h5>
         <%= form_tag update_group_status_transactions_path, method: :post do %>
-  <%= hidden_field_tag :group_id, @group.id %>
-  <%= submit_tag "Settle current expenses" %>
-<% end %>
+          <%= hidden_field_tag :group_id, @group.id %>
+          <%= hidden_field_tag :pay, @group.id %>
+          <%= hidden_field_tag :receive, @group.id %>
+          <%= submit_tag "Settle current expenses" %>
+        <% end %>
         <%= link_to "Add Expense", new_transaction_path, class: "btn btn-success" %>
       </div>
       <table class="table">
@@ -118,19 +79,24 @@
                 <td class="text-secondary "><%= expense.category.capitalize %></td>
                 <td class="text-secondary"><%= expense.amount %> €</td>
                 <td class="text-secondary"><%= expense.user.email %></td>
-                <%# <td><%= link_to "Edit", edit_transaction_path(transaction),
-                class: "btn btn-success"%>
-                <%# </td> %>
-                <%# <td><%= link_to "Delete", transaction_path(transaction), method: :delete,
-                data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{transaction.name} Expense?" },
-                class: "btn btn-danger" %>
-                <%# </td> %>
+                <td><%= link_to edit_transaction_path(expense) do %>
+                    <%= content_tag(:i, "", class: "fa-solid fa-pen-to-square text-dark me-1") %>
+                  <% end %>
+                </td>
+                <td><%= link_to transaction_path(expense), method: :delete,
+                      data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{expense.name} transaction?" } do %>
+                        <%= content_tag(:i, "", class: "fa-solid fa-trash-can text-dark me-2") %>
+                  <% end %>
+                </td>
+
+
+
               </tr>
           <% end %>
         </tbody>
       </table>
 
-    <h5 class="font-weight-bold">Total Settled Expenses $<%= total %></h5>
+    <h5 class="font-weight-bold">@total Settled Expenses $<%= @total %></h5>
       <table class="table">
         <thead>
           <tr>
