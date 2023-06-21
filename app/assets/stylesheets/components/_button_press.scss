@@ -15,8 +15,10 @@
 }
 
 .btn:hover {
-  box-shadow: 0.4rem 0.4rem 0 #07874d;
+  box-shadow: 0.3rem 0.3rem 0 black;
   transform: translate(-0.4rem, -0.4rem);
+  background-color: #1EDD88;
+  border-radius: 0.5em 0.5em 0.5em 0.5em;
 }
 
 .btn-danger:hover {
