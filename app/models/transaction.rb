@@ -9,6 +9,8 @@ class Transaction < ApplicationRecord
   before_update :remove_transaction_balance
   after_update :updated_user_transaction
 
+  after_destroy :update_user_balance_after_destroy
+
   include PgSearch::Model
 
   pg_search_scope :search_by_name_kind_category_amount_frequency,
@@ -33,6 +35,12 @@ class Transaction < ApplicationRecord
 
   def updated_user_transaction
     amount = self.amount * (kind == "Expense" ? -1:1)
+    user.balance += amount
+    user.save
+  end
+
+  def update_user_balance_after_destroy
+    amount = self.amount * (self.kind == "Income" ? -1:1)
     user.balance += amount
     user.save
   end

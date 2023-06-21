@@ -37,6 +37,8 @@ CATEGORIES = ['Food',
 TYPE = ['Expense', 'Income']
 FREQUENCIES = ["One-time", "Monthly", "Weekly"]
 
+
+
 test_user.transactions.delete_all
 
 i = 0
@@ -50,12 +52,14 @@ end
 
 i = 0
 40.times do |i|
+  created_at = Faker::Time.between(from: 1.month.ago, to: Time.zone.now)
   test_user.transactions.create!(
     amount: rand(10..150),
     category: CATEGORIES.sample,
     name: "Transaction #{i + 1}",
     kind: TYPE.sample,
-    frequency: FREQUENCIES.sample
+    frequency: FREQUENCIES.sample,
+    created_at: created_at,
   )
 end
 
