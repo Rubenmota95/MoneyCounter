@@ -4,9 +4,6 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
 static targets = ["graph", "transactions", "firstTransactions", "buttonShow", "buttonLess"]
 
-  connect() {
-    console.log("Working?");
-  }
   hideGraph() {
     this.transactionsTarget.classList.remove("d-none");
     this.firstTransactionsTarget.classList.add("d-none");
