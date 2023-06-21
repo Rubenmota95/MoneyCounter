@@ -4,7 +4,7 @@ class Transaction < ApplicationRecord
 
   validates :kind, presence: true
 
-  after_commit :update_user_balance, on: :create
+  after_save :update_user_balance
 
   before_update :remove_transaction_balance
   after_update :updated_user_transaction
