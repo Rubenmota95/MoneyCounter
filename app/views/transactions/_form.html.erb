@@ -1,22 +1,20 @@
-<%= simple_form_for(@transaction) do |f| %>
+<div class="container">
+<%= simple_form_for(@transaction, html: { id: 'transaction-form' }) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
+    <%= f.input :kind, label: 'Transaction Type', as: :select, collection: ['Expense', 'Income'], id: 'transaction_kind' %>
+
+    <div class="form-group" id="group-input">
+      <%= f.input :group_id, as: :select, collection: current_user.groups, prompt: 'Select Group' %>
+    </div>
+
     <%= f.input :name, placeholder: 'Transaction name' %>
     <%= f.input :amount, placeholder: "0,00 €" %>
-    <%= f.input :kind, label: 'Transaction Type', as: :select, collection: ['Expense', 'Income'] %>
-    <%= f.input :category, as: :select, collection: ['Groceries',
-     'Health',
-     'Fun',
-     'Travel',
-     'Education',
-     'Utilities',
-     'Salary/Freelance',
-     'Other'],
-                   prompt: 'Select a Category'%>
-    <%= f.input :group_id, as: :select, collection: current_user.groups,
-                   prompt: 'Select Group'%>
+
+    <%= f.input :category, as: :select, collection: [], prompt: 'Select a Category', id: 'transaction_category' %>
+
     <div class="form-actions d-flex justify-content-between mt-4">
       <div class="d-flex align-items-center">
         <%= link_to "Cancel", transactions_path, class: "btn btn-danger" %>
@@ -27,3 +25,50 @@
     </div>
   </div>
 <% end %>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var form = document.getElementById('transaction-form');
+  var kindSelect = form.querySelector('#transaction_kind');
+  var groupSelect = form.querySelector('#transaction_group_id');
+  var categorySelect = form.querySelector('#transaction_category');
+
+  // Initial setup
+  handleTransactionTypeChange();
+
+  // Add event listeners
+  kindSelect.addEventListener('change', handleTransactionTypeChange);
+
+  function handleTransactionTypeChange() {
+    var selectedKind = kindSelect.value;
+    if (selectedKind === 'Expense') {
+      groupSelect.closest('.form-group').style.display = 'block';
+      categorySelect.options.length = 0; // Clear previous options
+
+      // Add expense categories
+      var expenseCategories = ['Groceries', 'Health', 'Fun', 'Travel', 'Education', 'Utilities', 'Other'];
+      for (var i = 0; i < expenseCategories.length; i++) {
+        var option = document.createElement('option');
+        option.text = expenseCategories[i];
+        option.value = expenseCategories[i];
+        categorySelect.add(option);
+      }
+    } else {
+      groupSelect.closest('.form-group').style.display = 'none';
+      categorySelect.options.length = 0; // Clear previous options
+
+      // Add income categories
+      var incomeCategories = ['Salary', 'Freelance', 'Resell', 'Birthday', 'Christmas', 'Lottery', 'Other'];
+      for (var j = 0; j < incomeCategories.length; j++) {
+        var option = document.createElement('option');
+        option.text = incomeCategories[j];
+        option.value = incomeCategories[j];
+        categorySelect.add(option);
+      }
+    }
+  }
+
+  // Additional code or modifications can be added as needed
+});
+
+</script>
