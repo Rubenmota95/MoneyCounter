@@ -9,6 +9,10 @@ class Group < ApplicationRecord
     Transaction.where(group: self, kind: "Expense", group_status: false)
   end
 
+  def settled_expenses
+    Transaction.where(group: self, kind: "Expense", group_status: true)
+  end
+
   def who_to_who
     debitors = user_amounts_diff.select { |hash| hash[:divided_amount].negative? }
     creditors = user_amounts_diff.select { |hash| hash[:divided_amount].positive? }
@@ -25,14 +29,24 @@ class Group < ApplicationRecord
         creditors[creditor_index][:amount] -= amount
 
         transactions_to_settle << {
-          transaction: Transaction.new(
+          expense: Transaction.new(
+            name: "Settlement to #{creditor[:user].username}",
             amount: amount,
             kind: "Expense",
             group: self,
             category: "Settlement",
             user: debitor[:user],
-            group_status: true
-          ),
+            group_status: true,
+            ),
+          income: Transaction.new(
+            name: "Settlement from #{debitor[:user].username}",
+            amount: amount,
+            kind: "Income",
+            group: self,
+            category: "Settlement",
+            user: creditor[:user],
+            group_status: true,
+            ),
           receiver: creditor[:user],
           payer: debitor[:user],
         }
@@ -44,9 +58,12 @@ class Group < ApplicationRecord
     transactions_to_settle
   end
 
-
   def total
     expenses.sum(:amount)
+  end
+
+  def settled_total
+    settled_expenses.sum(:amount)
   end
 
   def fair_amount
