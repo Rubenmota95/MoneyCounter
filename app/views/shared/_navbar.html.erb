@@ -55,18 +55,24 @@
         </a>
       </li>
 
-      <li class="nav-item me-3 me-lg-1 mr-5 mb-4">
-        <a class="nav-link" href="/users/">
-          <div class="icon-wrapper">
-            <%= link_to user_path(current_user) do %>
-              <% content_tag(:i, "", class: "fa-solid fa-circle-user text-dark") %>
-            <% end %>
-            <div class="name-icons">
-              <p>Profile</p>
+      <% if user_signed_in? %>
+        <li class="nav-item me-3 me-lg-1 mr-5 mb-4">
+          <a class="nav-link" href="/users/">
+            <div class="icon-wrapper">
+              <%= link_to user_path(current_user) do %>
+                <% if current_user.photo.attached? %>
+                  <%= image_tag(current_user.photo, class: "avatar", style: "height: 40px; width: 40px; border-radius: 50%") %>
+                <% else %>
+                  <% content_tag(:i, "", class: "fa-solid fa-circle-user text-dark") %>
+                <% end %>
+              <% end %>
+              <div class="name-icons">
+                <p>Profile</p>
+              </div>
             </div>
-          </div>
-        </a>
-      </li>
+          </a>
+        </li>
+      <% end %>
 
   </ul>
   </div>

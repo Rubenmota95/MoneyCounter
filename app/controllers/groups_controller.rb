@@ -12,7 +12,7 @@ class GroupsController < ApplicationController
     end
     @expenses = Transaction.where(group: @group, kind: "Expense")
     @settled_group_expenses= @group.transactions.where(group_id: @group.id, kind: "Expense", group_status: true)
-    @donut_chart_group = Transaction.where(group_id: @group, kind: "Expense").group(:category).sum(:amount)
+    @donut_chart_group = Transaction.where(group_id: @group, kind: "Expense", group_status: false).group(:category).sum(:amount)
   end
 
   def new

@@ -22,22 +22,21 @@ test_user = User.create!(
 )
 
 GOAL_CATEGORIES = ['Product', 'Financial']
-CATEGORIES = ['Food',
-  'Health',
-  'Entertainment',
-  'Travel',
-  'Personal Care',
-  'Education',
-  'Utilities',
-  'Salary',
-  'Investments',
-  'Rental Income',
-  'Freelance',
-  'Other...']
-TYPE = ['Expense', 'Income']
-FREQUENCIES = ["One-time", "Monthly", "Weekly"]
+CATEGORIES_expense = ['Groceries',
+'Health',
+'Fun',
+'Travel',
+'Education',
+'Utilities',
+'Other']
 
-
+CATEGORIES_income = ['Salary',
+'Freelance',
+'Resell',
+'Birthday',
+'Christmas',
+'Lottery',
+'Other']
 
 test_user.transactions.delete_all
 
@@ -51,16 +50,28 @@ i = 0
 end
 
 i = 0
-40.times do |i|
+20.times do |i|
   created_at = Faker::Time.between(from: 1.month.ago, to: Time.zone.now)
   test_user.transactions.create!(
-    amount: rand(10..150),
-    category: CATEGORIES.sample,
+    amount: rand(10..300),
+    category: CATEGORIES_expense.sample,
     name: "Transaction #{i + 1}",
-    kind: TYPE.sample,
-    frequency: FREQUENCIES.sample,
+    kind: "Expense",
     created_at: created_at,
   )
 end
+
+i = 0
+10.times do |i|
+  created_at = Faker::Time.between(from: 1.month.ago, to: Time.zone.now)
+  test_user.transactions.create!(
+    amount: rand(100..1200),
+    category: CATEGORIES_income.sample,
+    name: "Transaction #{i + 1}",
+    kind: "Income",
+    created_at: created_at,
+  )
+end
+
 
 puts "Database Created! z0/"
