@@ -5,11 +5,16 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
-    @group_expenses= @group.transactions.where(group_id: @group.id, kind: "Expense")
+    @group_expenses= @group.transactions.where(group_id: @group.id, kind: "Expense", group_status: false)
     if !current_user.groups.exists?(@group.id)
       redirect_to groups_path, notice: "No permission..."
     end
     @expenses = Transaction.where(group: @group, kind: "Expense")
+    @settled_group_expenses= @group.transactions.where(group_id: @group.id, kind: "Expense", group_status: true)
+
+    # @group.who_to_who
+    # @group.user_amounts
+    # group.debt_credit_hash
   end
 
   def new
