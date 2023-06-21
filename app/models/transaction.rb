@@ -4,10 +4,12 @@ class Transaction < ApplicationRecord
 
   validates :kind, presence: true
 
-  after_commit :update_user_balance, on: :create
+  after_save :update_user_balance
 
   before_update :remove_transaction_balance
   after_update :updated_user_transaction
+
+  after_destroy :update_user_balance_after_destroy
 
   include PgSearch::Model
 
@@ -33,6 +35,12 @@ class Transaction < ApplicationRecord
 
   def updated_user_transaction
     amount = self.amount * (kind == "Expense" ? -1:1)
+    user.balance += amount
+    user.save
+  end
+
+  def update_user_balance_after_destroy
+    amount = self.amount * (self.kind == "Income" ? -1:1)
     user.balance += amount
     user.save
   end

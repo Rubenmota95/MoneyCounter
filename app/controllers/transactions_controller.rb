@@ -12,7 +12,7 @@ class TransactionsController < ApplicationController
       balance = 0
       @area_chart_data = @transactions.map do |transaction|
         balance += (transaction.kind == 'Expense' ? -1 : 1) * transaction.amount
-        [@transactions.index(transaction), balance]
+        [transaction.created_at.strftime("%b %d"), balance]
       end
     end
   end
@@ -60,16 +60,10 @@ class TransactionsController < ApplicationController
   end
 
   def update_group_status
-    group_id = params[:group_id]
-    Transaction.where(group_id: group_id, group_status: false).update_all(group_status: true)
-    redirect_to group_path(group_id), notice: "Group status updated successfully."
-  end
-
-  def settle_events
-    group = Group.find(params[:group_id])
-
-    Transaction.new(name: "#{group.name} from #{user.email}" , amount: , kind: "Income", group: group, category: "Settlement", user_id: )
-    Transaction.new(name: "#{group.name} to #{user.email}" , amount: , kind: "Expense", category: "Settlement", user_id: )
+    @group = Group.find(params[:group_id])
+    create_multiple
+    Transaction.where(group: @group, group_status: false).update_all(group_status: true)
+    redirect_to group_path(@group), notice: "Group status updated successfully."
   end
 
   def destroy
@@ -79,6 +73,13 @@ class TransactionsController < ApplicationController
   end
 
   private
+
+  def create_multiple
+    @group.who_to_who.each do |txn|
+      txn[:expense].save!
+      txn[:income].save!
+    end
+  end
 
   def transaction_params
     params.require(:transaction).permit(:amount, :category, :name, :frequency, :group_id, :kind)
