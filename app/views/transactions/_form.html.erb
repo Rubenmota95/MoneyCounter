@@ -6,21 +6,15 @@
     <%= f.input :name, placeholder: 'Transaction name' %>
     <%= f.input :amount, placeholder: "0,00 €" %>
     <%= f.input :kind, label: 'Transaction Type', as: :select, collection: ['Expense', 'Income'] %>
-    <%= f.input :category, as: :select, collection: ['Food',
+    <%= f.input :category, as: :select, collection: ['Groceries',
      'Health',
-     'Entertainment',
+     'Fun',
      'Travel',
-     'Personal Care',
      'Education',
      'Utilities',
-     'Salary',
-     'Investments',
-     'Rental Income',
-     'Freelance',
-     'Other...'],
+     'Salary/Freelance',
+     'Other'],
                    prompt: 'Select a Category'%>
-    <%= f.input :frequency, as: :select, collection: ['One-Time', 'Weekly', 'Monthly'],
-                          placeholder: 'One-time, Weekly, Monthly' %>
     <%= f.input :group_id, as: :select, collection: current_user.groups,
                    prompt: 'Select Group'%>
     <div class="form-actions d-flex justify-content-between mt-4">
