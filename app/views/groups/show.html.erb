@@ -62,12 +62,14 @@
         <h5 class="font-weight-bold">Total Expenses: <%= @group.total %> € <i class="fa-solid fa-circle-question fa-2xs" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="These expenses are not settled yet"></i></h5>
       </div>
 
-
+Rubeneneneneneen
       <div class=" d-flex flex-column-reverse">
                <% @group_expenses.each do |expense| %>
                 <div class="card-product mb-3 d-flex">
                   <div class="col-3">
-                    <p class="fs-12 ms-3 "><%= expense.name.capitalize %></p>
+                    <p class="fs-12 ms-3 " style="margin-top: -3px"><%= expense.name.capitalize %></p>
+                    <p class="fs-12 ms-3 ">by <%= expense.user.username.capitalize %></p>
+
                   </div>
                   <div class="col-3 d-flex">
                     <p class="fs-8 ms-3"><%= expense.category %></p>
@@ -95,7 +97,8 @@
                <% @settled_group_expenses.each do |expense| %>
                 <div class="card-product bg-light text-muted mb-3 d-flex">
                   <div class="col-3">
-                    <p class="fs-12 ms-3 "><%= expense.name.capitalize %></p>
+                    <p class="fs-6 ms-3"><%= expense.name.capitalize %></p>
+                    <p class="fs-12 ms-3" style="margin-top: -3px">by <%= expense.user.username.capitalize %></p>
                   </div>
                   <div class="col-3 d-flex">
                     <p class="fs-8 ms-3"><%= expense.category %></p>
