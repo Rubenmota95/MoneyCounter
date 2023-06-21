@@ -12,7 +12,7 @@ class TransactionsController < ApplicationController
       balance = 0
       @area_chart_data = @transactions.map do |transaction|
         balance += (transaction.kind == 'Expense' ? -1 : 1) * transaction.amount
-        [@transactions.index(transaction), balance]
+        [transaction.created_at.strftime("%b %d"), balance]
       end
     end
   end
