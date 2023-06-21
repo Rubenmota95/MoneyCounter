@@ -1,36 +1,34 @@
 class GoalsController < ApplicationController
 
   def index
-    
+
     @goals = Goal.all.order(created_at: :asc).where(user: current_user)
     if params[:query].present?
-      @goals =Goal.search_by_name_category_amount_frequency(params[:query])
+      @goals = Goal.search_by_name_category_amount_frequency(params[:query])
     else
-      @goals = Goal.all
+      @goals = Goal.all.order(created_at: :asc).where(user: current_user)
     end
-    
     @favorite_array = []
     @goals.each do |goal|
-      if goal.favorite == true
-        @favorite_array << goal
-      end
+      @favorite_array << goal if goal.favorite == true
     end
-    if @favorite_array.empty?
-      @percentage = ((current_user.balance * 100) / @goals.first.amount).round()
-      if @percentage > 100
-        @percentage = 100
-      elsif @percentage < 0
-        @percentage = 0
+
+    if !@goals.empty?
+      if @favorite_array.empty?
+        @percentage = ((current_user.balance * 100) / @goals.first.amount).round()
+        if @percentage > 100
+          @percentage = 100
+        elsif @percentage < 0
+          @percentage = 0
+        end
+      else
+        @percentage = ((current_user.balance * 100) / @favorite_array.first.amount).round()
+        if @percentage > 100
+          @percentage = 100
+        elsif @percentage < 0
+          @percentage = 0
+        end
       end
-      return @percentage
-    else
-      @percentage = ((current_user.balance * 100) / @favorite_array.first.amount).round()
-      if @percentage > 100
-        @percentage = 100
-      elsif @percentage < 0
-        @percentage = 0
-      end
-      return @percentage
     end
   end
 

@@ -16,10 +16,13 @@
       <h4>Last Name:</h4>
       <p><%= current_user.last_name %></p>
 
+      <h4>User Name:</h4>
+      <p><%= current_user.username %></p>
+
       <h4>Email:</h4>
       <p><%= current_user.email %></p>
 
-      <%= link_to "Edit Profile", edit_user_path(current_user), class: "btn btn-primary" %>
+      <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-primary" %>
     </div>
   </div>
   <%= link_to raw('<i class="fas fa-sign-out-alt"></i> Log out'), destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-success" %>

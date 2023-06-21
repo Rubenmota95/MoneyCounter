@@ -16,6 +16,7 @@ puts "Creating Database...."
 
 test_user = User.create!(
   email: 'test@example.com',
+  username: 'test123',
   password: 'password',
   password_confirmation: 'password'
 )
