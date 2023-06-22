@@ -23,6 +23,7 @@
   right: 0%;
   top: 0%;
   border-radius: 5px;
+  z-index: 10;
 }
 
 
@@ -35,7 +36,7 @@
 }
 
 
-.dropdown-content a:hover {background-color: white;}
+.dropdown-content a:hover {background-color: #F3F3F3}
 
 .dropdown:hover .dropdown-content {display: block; transition: 0.4s ease;}
 
