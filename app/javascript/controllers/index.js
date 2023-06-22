@@ -15,3 +15,6 @@ application.register("tooltip", TooltipController)
 
 import TransactionController from "./transaction_controller"
 application.register("transaction", TransactionController)
+
+import TransactionsFormController from "./transactions_form_controller"
+application.register("transactions-form", TransactionsFormController)

@@ -14,6 +14,11 @@ class Transaction < ApplicationRecord
 
   after_destroy :update_user_balance_after_destroy
 
+  CATEGORIES = {
+    expense:['Groceries', 'Health', 'Fun', 'Travel', 'Education', 'Utilities', 'Other'],
+    income: ['Salary', 'Freelance', 'Resell', 'Birthday', 'Christmas', 'Lottery', 'Other'],
+  }
+
   include PgSearch::Model
 
   pg_search_scope :search_by_name_kind_category_amount_frequency,
