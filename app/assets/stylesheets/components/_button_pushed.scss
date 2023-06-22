@@ -1,0 +1,60 @@
+.button-pressed-left {
+  color: black;
+  background: #ededed;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: .5em 0 0 .5em;
+}
+
+.button-pressed-middle {
+  color: black;
+  background: #ededed;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.button-pressed-right {
+  color: black;
+  background: #ededed;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 0 .5em .5em 0;
+}
+
+.button-pressed-left-focus {
+  background: black;
+  outline: none;
+  border-radius: .5em 0 0 .5em;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  -webkit-box-shadow: inset 0px 0px 5px white;
+     -moz-box-shadow: inset 0px 0px 5px white;
+          box-shadow: inset 0px 0px 5px white;
+}
+
+.button-pressed-middle-focus {
+  background: black;
+  outline: none;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  -webkit-box-shadow: inset 0px 0px 5px white;
+     -moz-box-shadow: inset 0px 0px 5px white;
+          box-shadow: inset 0px 0px 5px white;
+}
+
+.button-pressed-right-focus {
+  background: black;
+  outline: none;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 0 .5em .5em 0;
+  -webkit-box-shadow: inset 0px 0px 5px white;
+     -moz-box-shadow: inset 0px 0px 5px white;
+          box-shadow: inset 0px 0px 5px white;
+}

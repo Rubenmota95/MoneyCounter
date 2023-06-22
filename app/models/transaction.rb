@@ -3,10 +3,13 @@ class Transaction < ApplicationRecord
   belongs_to :group, optional: true
 
   validates :kind, presence: true
+  validates :name, length: { maximum: 15 }, presence: true
+  validates :amount, presence: true
+  validates :category, presence: true
 
   after_save :update_user_balance
 
-  before_update :remove_transaction_balance
+  before_update :remove_transaction_balance, if: :amount_changed?
   after_update :updated_user_transaction
 
   after_destroy :update_user_balance_after_destroy

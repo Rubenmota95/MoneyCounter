@@ -30,7 +30,7 @@ class Group < ApplicationRecord
 
         transactions_to_settle << {
           expense: Transaction.new(
-            name: "Settlement to #{creditor[:user].username}",
+            name: "Settlement to #{creditor[:user].username.capitalize}",
             amount: amount,
             kind: "Expense",
             group: self,
@@ -39,7 +39,7 @@ class Group < ApplicationRecord
             group_status: true,
             ),
           income: Transaction.new(
-            name: "Settlement from #{debitor[:user].username}",
+            name: "Settlement from #{debitor[:user].username.capitalize}",
             amount: amount,
             kind: "Income",
             group: self,
