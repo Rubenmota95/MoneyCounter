@@ -12,7 +12,6 @@ class GoalsController < ApplicationController
     @goals.each do |goal|
       @favorite_array << goal if goal.favorite == true
     end
-
     if !@goals.empty?
       if @favorite_array.empty?
         @percentage = ((current_user.balance * 100) / @goals.first.amount).round()
