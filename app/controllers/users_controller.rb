@@ -12,7 +12,7 @@ class UsersController < Devise::RegistrationsController
   def update
     @user = current_user
     if @user.update(user_params)
-      redirect_to root_path, notice: 'Profile picture updated successfully.'
+      redirect_to root_path
     else
       render :edit
     end

@@ -103,7 +103,7 @@
     <% end %>
 
 
-    <h5 class="mt-3 font-weight-bold text-muted">Total Settled Expenses: <%= @group.settled_total %> € <i class="fa-solid fa-circle-question fa-2xs" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="These expenses have been settled"></i></h5>
+    <h5 class="mt-3 font-weight-bold text-muted">Total Settled Expenses: <%= @group.settled_total.round(1) %> € <i class="fa-solid fa-circle-question fa-2xs" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="These expenses have been settled"></i></h5>
     <div class=" d-flex flex-column-reverse">
                <% @settled_group_expenses.each do |expense| %>
                 <div class="card-product bg-light text-muted mb-3 d-flex">
