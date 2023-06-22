@@ -17,9 +17,9 @@
   </div>
   <div class="d-flex justify-content-between">
     <% if current_user.balance < 0 %>
-      <p><strong>Saved Amount: </strong><span class="text-danger">€<%= current_user.balance %></span></p>
+      <p><strong>Saved: </strong><span class="text-danger">€<%= current_user.balance %></span></p>
     <% else %>
-      <p><strong>Saved Amount: </strong><span class="text-success">€<%= current_user.balance %></span></p>
+      <p><strong>Saved: </strong><span class="text-success">€<%= current_user.balance %></span></p>
     <% end %>
       <p></p><strong><%= @goals.first.name %>'s Price:<strong> <span class="">$<%= @goals.first.amount %></span></p>
   </div>
