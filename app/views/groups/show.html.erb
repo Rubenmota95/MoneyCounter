@@ -71,7 +71,7 @@
                       <% if expense.user.photo.attached? %>
                         <%= image_tag(expense.user.photo, class: "avatar", style: "height: 25px; width: 25px; border-radius: 50%", data_controller:"tooltip", data_bs_toggle:"tooltip", data_bs_placement:"top", title: "#{expense.user.username.capitalize}") %>
                       <% else %>
-                        <% content_tag(:i, "", class: "fa-solid fa-circle-user text-dark") %>
+                        <i class="fa-solid fa-circle-user text-dark fs-2"></i>
                       <% end %>
                     </div>
                   </div>
@@ -87,7 +87,7 @@
                   </div>
                   <div class="col-2 d-flex justify-content-end">
                     <div class="dropdown">
-                      <button class="dropbtn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                      <button class="dropbtn me-2"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                         <div class="dropdown-content">
                           <%= link_to "Edit", edit_transaction_path(expense)%>
                           <%= link_to "Delete",
@@ -112,7 +112,7 @@
                       <% if expense.user.photo.attached? %>
                         <%= image_tag(expense.user.photo, class: "avatar", style: "height: 25px; width: 25px; border-radius: 50%", data_controller:"tooltip", data_bs_toggle:"tooltip", data_bs_placement:"top", title: "#{expense.user.username.capitalize}") %>
                       <% else %>
-                        <% content_tag(:i, "", class: "fa-solid fa-circle-user text-dark") %>
+                        <i class="fa-solid fa-circle-user text-dark fs-2"></i>
                       <% end %>
                     </div>
                   </div>

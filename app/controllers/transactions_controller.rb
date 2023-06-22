@@ -1,9 +1,9 @@
 class TransactionsController < ApplicationController
 
   def index
-    @transactions = Transaction.where(user: current_user, group_id: nil)
+    @transactions = Transaction.where(user: current_user)
     if params[:query].present?
-      @transactions = Transaction.where(user: current_user, group_id: nil).search_by_name_kind_category_amount_frequency(params[:query])
+      @transactions = Transaction.where(user: current_user).search_by_name_kind_category_amount_frequency(params[:query])
       if params[:query] == "expense" || params[:query] == "income"
         @donut_chart_data = Transaction.where(user: current_user, group_id: nil, kind: params[:query].capitalize).group(:category).sum(:amount)
       end

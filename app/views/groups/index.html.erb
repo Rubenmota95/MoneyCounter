@@ -2,7 +2,7 @@
   <div>
     <div class="d-flex justify-content-between mt-3 mb-3">
       <h3>Your Groups</h3>
-<%= link_to new_group_path, class: "btn btn-success" do %>
+<%= link_to new_group_path, class: "btn btn-flat" do %>
   <i class="fas fa-people-group"></i>
 <% end %>    </div>
 
@@ -12,24 +12,25 @@
     <% else %>
       <% @groups.each do |group| %>
                 <div class="card-product bg-light text-muted mb-3 d-flex">
-                  <div class="col-3">
+                  <div class="col-5">
                     <p class="fs-6 ms-3"><%= group.name.capitalize %></p>
                   </div>
                   <div class="col-3 d-flex">
                     <p class="fs-8 ms-3">
-                      <div style="container-avatar">
+                      <div class="container-avatar">
                           <% group.users.each do |user| %>
                               <% if user.photo.attached? %>
                                 <%= image_tag(user.photo, class: "avatar", style: "height: 25px; width: 25px; border-radius: 50%", data_controller:"tooltip", data_bs_toggle:"tooltip", data_bs_placement:"top", title: "#{user.username.capitalize}") %>
                               <% else %>
-                                <% content_tag(:i, "", class: "fa-solid fa-circle-user text-dark") %>
+                                <i class="fa-solid fa-circle-user text-dark fs-2"></i>
                               <% end %>
                           <% end %>
                        </div>
                     </p>
                   </div>
-                  <div class="col-3 d-flex"> <%= link_to "Open", group_path(group),
-              class: "btn btn-success"%></div>
+                  <div class="col-2 d-flex me-2">
+                  <%= link_to "Open", group_path(group),
+                    class: "btn btn-flat" %></div>
                 </div>
               <% end %>
     <% end %>
