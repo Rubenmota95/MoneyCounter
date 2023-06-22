@@ -5,12 +5,11 @@
   padding-right: 25px;
 }
  .container-avatar img {
-  border: 1.5px solid rgb(161, 161, 161);
+  border: 1px solid #000000bd;
   transition: all 400ms ease;
   overflow-clip-margin: content-box;
   overflow: clip;
-  margin-right: -18px;
-  width: 45px;
+  margin-right: -6px;
  }
 
  .container-avatar img:hover {
