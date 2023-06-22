@@ -1,19 +1,19 @@
 <div class="container">
-<%= simple_form_for(@transaction, html: { id: 'transaction-form' }) do |f| %>
+<%= simple_form_for(@transaction, data: { controller: 'transactions-form', transactions_form_categories_value: Transaction::CATEGORIES  }) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
-    <%= f.input :kind, label: 'Transaction Type', as: :select, collection: ['Expense', 'Income'], id: 'transaction_kind' %>
+    <%= f.input :kind, label: 'Transaction Type', prompt: 'Select Type', as: :select, collection: ['Expense', 'Income'], input_html: { data: { action: 'change->transactions-form#handleChange' }} %>
 
     <div class="form-group" id="group-input">
-      <%= f.input :group_id, as: :select, collection: current_user.groups, prompt: 'Select Group' %>
+      <%= f.input :group_id, as: :select, collection: current_user.groups, prompt: 'Select Group', wrapper_html: { class:"d-none", data: { transactions_form_target: 'group' }} %>
     </div>
 
     <%= f.input :name, placeholder: 'Transaction name' %>
     <%= f.input :amount, placeholder: "0,00 €" %>
 
-    <%= f.input :category, as: :select, collection: [], prompt: 'Select a Category', id: 'transaction_category' %>
+    <%= f.input :category, as: :select, collection: [], prompt: 'Select a Category', id: 'transaction_category', input_html: { data: { transactions_form_target: 'category' }} %>
 
     <div class="form-actions d-flex justify-content-between mt-4">
       <div class="d-flex align-items-center">
@@ -26,7 +26,7 @@
   </div>
 <% end %>
 </div>
-<script>
+<%# <script>
 document.addEventListener('DOMContentLoaded', function() {
   var form = document.getElementById('transaction-form');
   var kindSelect = form.querySelector('#transaction_kind');
@@ -71,4 +71,4 @@ document.addEventListener('DOMContentLoaded', function() {
   // Additional code or modifications can be added as needed
 });
 
-</script>
+</script> %>
