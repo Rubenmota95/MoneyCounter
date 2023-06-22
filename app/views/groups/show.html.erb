@@ -83,7 +83,7 @@
                     <p class="fs-8"><%= expense.category %></p>
                   </div>
                   <div class="col-2 d-flex justify-content-end">
-                    <p class="fs-8"><%= expense.amount %> € <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= expense.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></p>
+                    <p class="fs-8"><%= expense.amount.round(1) %> € <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= expense.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></p>
                   </div>
                   <div class="col-2 d-flex justify-content-end">
                     <div class="dropdown">
@@ -124,7 +124,7 @@
                     <p class="fs-8"><%= expense.category %></p>
                   </div>
                   <div class="col-2 d-flex justify-content-end">
-                    <p class="fs-8"><%= expense.amount %> € <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= expense.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></p>
+                    <p class="fs-8"><%= expense.amount.round(1) %> € <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= expense.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></p>
                   </div>
                   <div class="col-2 d-flex ">
                     <p class="fs-8 ms-3" >Settled <i class="fa-solid fa-square-check"></i></p>

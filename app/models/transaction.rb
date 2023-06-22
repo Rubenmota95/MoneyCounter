@@ -31,25 +31,25 @@ class Transaction < ApplicationRecord
 
   def update_user_balance
     amount = self.amount * (kind == "Expense" ? -1:1)
-    user.balance += amount
+    user.balance += amount.round(1)
     user.save
   end
 
   def remove_transaction_balance
     old_amount = attributes_in_database()[:amount] * (kind == "Income" ? -1:1)
-    user.balance += old_amount
+    user.balance += old_amount.round(1)
     user.save
   end
 
   def updated_user_transaction
     amount = self.amount * (kind == "Expense" ? -1:1)
-    user.balance += amount
+    user.balance += amount.round(1)
     user.save
   end
 
   def update_user_balance_after_destroy
     amount = self.amount * (self.kind == "Income" ? -1:1)
-    user.balance += amount
+    user.balance += amount.round(1)
     user.save
   end
 end
