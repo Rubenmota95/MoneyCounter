@@ -3,7 +3,7 @@ class Transaction < ApplicationRecord
   belongs_to :group, optional: true
 
   validates :kind, presence: true
-  validates :name, length: { maximum: 11 }, presence: true
+  validates :name, length: { maximum: 15 }, presence: true
   validates :amount, presence: true
   validates :category, presence: true
 

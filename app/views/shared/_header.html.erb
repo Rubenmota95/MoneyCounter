@@ -6,9 +6,10 @@
       <% end %>
       <p class="mt-1" style="margin-bottom: 3px!important;">
       <% if current_user.balance < 0 %>
-        <strong>Balance: </strong><span class="text-danger">€<%= current_user.balance %></span></p>
+      <span class="d-flex align-center">
+        <strong>Balance: </strong><span class="text-danger" style="margin-top: 1.8px;">€<%= current_user.balance %></span></span></p>
       <% else %>
-        <strong>Balance: </strong><span class="text-success">€<%= current_user.balance %></span></p>
+        <strong>Balance: </strong><span class="text-success"  style="margin-top: 1.8px;">€<%= current_user.balance %></span></span></p>
       <% end %>
     </div>
   </div>
