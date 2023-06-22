@@ -61,7 +61,7 @@
             <div class="icon-wrapper">
               <%= link_to user_path(current_user) do %>
                 <% if current_user.photo.attached? %>
-                  <%= image_tag(current_user.photo, class: "avatar", style: "height: 30px; width: 30.5px; rounded-circle") %>
+                  <%= image_tag(current_user.photo, class: "avatar", style: "height: 30px; width: 30.5px; rounded-circle; border: 2px solid #000000bd;") %>
                 <% else %>
                   <% content_tag(:i, "", class: "fa-solid fa-circle-user text-dark") %>
                 <% end %>
