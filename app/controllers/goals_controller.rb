@@ -4,7 +4,7 @@ class GoalsController < ApplicationController
 
     @goals = Goal.all.order(created_at: :asc).where(user: current_user)
     if params[:query].present?
-      @goals = Goal.search_by_name_category_amount_frequency(params[:query])
+      @goals = Goal.where(user: current_user).search_by_name_category_amount_frequency(params[:query])
     else
       @goals = Goal.all.order(created_at: :asc).where(user: current_user)
     end
