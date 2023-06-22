@@ -1,30 +1,30 @@
 <div class="container">
-<%= simple_form_for(@transaction, data: { controller: 'transactions-form', transactions_form_categories_value: Transaction::CATEGORIES  }) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <%= simple_form_for(@transaction, data: { controller: 'transactions-form', transactions_form_categories_value: Transaction::CATEGORIES }) do |f| %>
+    <%= f.error_notification %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-    <%= f.input :kind, label: 'Transaction Type', prompt: 'Select Type', as: :select, collection: ['Expense', 'Income'], input_html: { data: { action: 'change->transactions-form#handleChange' }} %>
+    <div class="form-inputs">
+      <%= f.input :kind, label: 'Transaction Type', prompt: 'Select Type', as: :select, collection: ['Expense', 'Income'], input_html: { class: 'rounded-boxes', data: { action: 'change->transactions-form#handleChange' } } %>
 
-    <div class="form-group" id="group-input">
-      <%= f.input :group_id, as: :select, collection: current_user.groups, prompt: 'Select Group', wrapper_html: { class:"d-none", data: { transactions_form_target: 'group' }} %>
-    </div>
-
-    <%= f.input :name, placeholder: 'Transaction name' %>
-    <%= f.input :amount, placeholder: "0,00 €" %>
-
-    <%= f.input :category, as: :select, collection: [], prompt: 'Select a Category', id: 'transaction_category', input_html: { data: { transactions_form_target: 'category' }} %>
-
-    <div class="form-actions d-flex justify-content-between mt-4">
-      <div class="d-flex align-items-center">
-        <%= link_to "Cancel", transactions_path, class: "btn btn-danger" %>
+      <div class="form-group" id="group-input">
+        <%= f.input :group_id, as: :select, collection: current_user.groups, prompt: 'Select Group', wrapper_html: { class: 'd-none', data: { transactions_form_target: 'group' } }, input_html: { class: "rounded-boxes"} %>
       </div>
-      <div>
-        <%= f.button :submit, class: "btn btn-success" %>
+
+      <%= f.input :name, placeholder: 'Transaction name', input_html: { class: 'rounded-boxes' } %>
+      <%= f.input :amount, placeholder: "0,00 €", input_html: { class: 'rounded-boxes' } %>
+
+      <%= f.input :category, as: :select, collection: [], prompt: 'Select a Category', id: 'transaction_category', input_html: { class: 'rounded-boxes', data: { transactions_form_target: 'category' } } %>
+
+      <div class="form-actions d-flex justify-content-between mt-4">
+        <div class="d-flex align-items-center">
+          <%= link_to "Cancel", transactions_path, class: "ms-3 btn btn-flat-cancel" %>
+        </div>
+        <div>
+          <%= f.button :submit, class: "btn btn-flat" %>
+        </div>
       </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
 </div>
 <%# <script>
 document.addEventListener('DOMContentLoaded', function() {

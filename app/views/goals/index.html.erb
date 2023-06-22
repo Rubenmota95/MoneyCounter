@@ -22,6 +22,7 @@
   <% if @goals.empty? %>
     <h5>You haven't set any goal!</h5>
     <%= link_to "Set your first goal here", new_goal_path, class: "btn btn-success" %>
+
   <% else %>
     <% if @favorite_array.empty? %>
       <%= render "/shared/no_favorite_goal" %>

@@ -22,7 +22,7 @@ class TransactionsController < ApplicationController
     if @transaction.user == current_user
       redirect_to transaction_path(transaction)
     else
-      redirect_to transactions_path, notice: "No permission..."
+      redirect_to transactions_path
     end
   end
 
@@ -35,11 +35,11 @@ class TransactionsController < ApplicationController
     @transaction.user = current_user
     if @transaction.save!
       if @transaction.group_id.nil?
-        redirect_to transactions_path, notice: "Transaction added successfully"
+        redirect_to transactions_path
 
       else
         @group = Group.find(@transaction.group_id)
-        redirect_to group_path(@group), notice: "Transaction added successfully to #{@group.name}"
+        redirect_to group_path(@group)
       end
     else
       render :new, status: :unprocessable_entity
@@ -63,7 +63,7 @@ class TransactionsController < ApplicationController
     @group = Group.find(params[:group_id])
     create_multiple
     Transaction.where(group: @group, group_status: false).update_all(group_status: true)
-    redirect_to group_path(@group), notice: "Group status updated successfully."
+    redirect_to group_path(@group)
   end
 
   def destroy

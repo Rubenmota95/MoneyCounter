@@ -5,11 +5,11 @@
         <i class="fa-solid fa-wallet fs-1" style="color: black; margin-left: 20px; margin-right: 6px;"></i>
       <% end %>
       <p class="mt-1" style="margin-bottom: 3px!important;">
-      <% if current_user.balance < 0 %>
       <span class="d-flex align-center">
-        <strong>Balance: </strong><span class="text-danger" style="margin-top: 1.8px;">€<%= current_user.balance %></span></span></p>
+      <% if current_user.balance < 0 %>
+        <strong>Balance: </strong><span class="text-danger ms-1" style="margin-top: 1.6px;">€<%= current_user.balance %></span></span></p>
       <% else %>
-        <strong>Balance: </strong><span class="text-success"  style="margin-top: 1.8px;">€<%= current_user.balance %></span></span></p>
+        <strong>Balance: </strong><span class="text-success ms-1" style="margin-top: 1.6px;">€<%= current_user.balance %></span></span></p>
       <% end %>
     </div>
   </div>
