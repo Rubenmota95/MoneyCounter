@@ -86,14 +86,16 @@
                     <p class="fs-8"><%= expense.amount %> € <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= expense.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></p>
                   </div>
                   <div class="col-2 d-flex justify-content-end">
-                    <%= link_to edit_transaction_path(expense) do %>
-                      <%= content_tag(:i, "", class: "fa-solid fa-pen-to-square text-dark me-1") %>
-                    <% end %>
-                    <p></p>
-                    <%= link_to transaction_path(expense), method: :delete,
-                      data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{expense.name} transaction?" } do %>
-                        <%= content_tag(:i, "", class: "fa-solid fa-trash-can text-dark me-2") %>
-                      <% end %>
+                    <div class="dropdown">
+                      <button class="dropbtn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                        <div class="dropdown-content">
+                          <%= link_to "Edit", edit_transaction_path(expense)%>
+                          <%= link_to "Delete",
+                            transaction_path(expense),
+                            method: :delete,
+                            data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{expense.name} group with all its expenses?" }%>
+                        </div>
+                    </div>
                   </div>
                 </div>
               <% end %>
