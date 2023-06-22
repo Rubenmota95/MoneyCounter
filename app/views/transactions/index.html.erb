@@ -81,7 +81,7 @@
           <%= form_tag(transactions_path, method: :get, class: "simple_form search") do %>
             <div class="search-form-control form-group">
               <div class="input-group">
-                <%= text_field_tag(:query, params[:query], class: "form-control", placeholder: 'Search...', style: "border-radius: .5em 0 0 .5em; font-size: 13px;") %>
+                <%= text_field_tag(:query, params[:query], class: "form-control", placeholder: 'Search...', style: "border-radius: .5em 0 0 .5em;") %>
                 <button class="btn btn-flat" type="submit" style="border-radius: 0 .5em .5em 0;">
                   <i class="fas fa-search"></i>
                 </button>
@@ -103,7 +103,7 @@
                     <p class="fs-8 ms-2 me-3"><%= transaction.name.capitalize %></p>
                   </div>
                   <div class="col-3">
-                    <p class="fs-8 ms-2 me-3"><%= transaction.kind %></p>
+                    <p class="fs-8 ms-2 me-3"><%= transaction.category.capitalize %></p>
                   </div>
                   <div class="col-3">
                     <% if transaction.kind == "Expense" %>
@@ -113,15 +113,13 @@
                     <% end %>
                   </div>
                   <div class="col-3 d-flex justify-content-end">
-                   <div class="dropdown">
-                    <button class="dropbtn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
-                      <div class="dropdown-content">
-                        <%= link_to "Edit Transaction", edit_transaction_path(transaction)%>
-                        <%= link_to "Delete Transaction",
-                          transaction_path(transaction),
-                          method: :delete,
-                          data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{transaction.name} group with all its expenses?" }%></div>
-                    </div>
+                    <%= link_to edit_transaction_path(transaction) do %>
+                      <%= content_tag(:i, "", class: "fa-solid fa-pen-to-square text-dark me-1") %>
+                    <% end %>
+                    <%= link_to transaction_path(transaction), method: :delete,
+                        data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{transaction.name} transaction?" } do %>
+                          <%= content_tag(:i, "", class: "fa-solid fa-trash-can text-dark me-2") %>
+                    <% end %>
                   </div>
                 </div>
               <% end %>
@@ -130,9 +128,10 @@
             <div class="d-flex flex-column-reverse" data-transaction-target="firstTransactions">
               <% @transactions.last(5).each do |transaction| %>
                 <div class="card-product mb-3 d-flex">
-                  <div class="col-5">
+                  <div class="col-3">
                     <p class="fs-8 ms-2 me-3"><%= transaction.name.capitalize %></p>
                   </div>
+                    <p class="fs-8 ms-2 me-3"><%= transaction.category.capitalize %></p>
                   <div class="col-3">
                     <% if transaction.kind == "Expense" %>
                       <p class="fs-8 me-3"><span class="text-danger">-<%= transaction.amount %> €</span> <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= transaction.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></p>
@@ -141,15 +140,13 @@
                     <% end %>
                   </div>
                   <div class="col-3 d-flex justify-content-end">
-                    <div class="dropdown">
-                      <button class="dropbtn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
-                        <div class="dropdown-content">
-                          <%= link_to "Edit Transaction", edit_transaction_path(transaction)%>
-                          <%= link_to "Delete Transaction",
-                            transaction_path(transaction),
-                            method: :delete,
-                            data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{transaction.name} group with all its expenses?" }%></div>
-                    </div>
+                    <%= link_to edit_transaction_path(transaction) do %>
+                      <%= content_tag(:i, "", class: "fa-solid fa-pen-to-square fs-4 text-dark me-3") %>
+                    <% end %>
+                    <%= link_to transaction_path(transaction), method: :delete,
+                        data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{transaction.name} transaction?" } do %>
+                          <%= content_tag(:i, "", class: "fa-solid fa-trash-can fs-4 text-dark me-2") %>
+                    <% end %>
                   </div>
 
                 </div>

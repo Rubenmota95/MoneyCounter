@@ -20,8 +20,8 @@
   background-color: #ffffff;
   min-width: 160px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  z-index: 1;
   right: 0%;
+  top: 0%;
   border-radius: 5px;
 }
 
@@ -35,7 +35,7 @@
 }
 
 
-.dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content a:hover {background-color: white;}
 
 .dropdown:hover .dropdown-content {display: block; transition: 0.4s ease;}
 
