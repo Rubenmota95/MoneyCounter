@@ -13,7 +13,7 @@
   </div>
 
   <div>
-  <% if @group.expenses.empty? & @group.settled_expenses.empty? %>
+  <% if @group.expenses.empty? && @group.settled_expenses.empty? %>
     <p>Your group hasn't spent any money!</p>
     <%= link_to "Add your first expense to #{@group.name}!", new_transaction_path, class: "btn" %>
 
