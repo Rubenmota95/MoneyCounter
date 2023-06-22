@@ -53,18 +53,21 @@
       <div class="d-flex">
         <%= link_to favorite_goal_path(goal), data: { turbo_method: :patch } do %>
           <% if goal.favorite == false %>
-            <i class="fa-regular fa-star me-3 fs-4 text-dark"></i>
+            <i class="fa-regular fa-star mt-1 me-3 fs-4 text-dark"></i>
           <% else %>
-            <i class="fa-solid fa-star me-3 fs-4 text-success"></i>
+            <i class="fa-solid fa-star mt-1 me-3 fs-4 text-success"></i>
           <% end %>
         <% end %>
-        <%= link_to edit_goal_path(goal) do %>
-          <%= content_tag(:i, "", class: "fa-solid fa-pen-to-square fs-4 text-dark me-3") %>
-        <% end %>
-        <%= link_to goal_path(goal), method: :delete,
-            data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{goal.name} Goal?" } do %>
-              <%= content_tag(:i, "", class: "fa-solid fa-trash-can fs-4 text-dark me-2") %>
-        <% end %>
+        <div class="dropdown">
+          <button class="dropbtn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+            <div class="dropdown-content">
+              <%= link_to "Edit", edit_goal_path(goal)%>
+              <%= link_to "Delete",
+                goal_path(goal),
+                method: :delete,
+                data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{goal.name} group with all its expenses?" }%>
+            </div>
+        </div>
       </div>
     </div>
 <% end %>

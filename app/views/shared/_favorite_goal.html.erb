@@ -3,16 +3,16 @@
 <div class="row justify-content-center">
   <div class="col-8 col-sm-6">
     <% if @favorite_array.first.photo.attached? %>
-      <%= cl_image_tag @favorite_array.first.photo.key, class:"img-fluid mx-auto d-block rounded-4"%>
+      <%= cl_image_tag @favorite_array.first.photo.key, class:"img-fluid mx-auto d-block rounded-4", style: "width: 150px; max-height: 100px;"%>
     <% else %>
       <img src="https://m.media-amazon.com/images/I/716+A9OrcSL._AC_SL1500_.jpg" class= "img-fluid mx-auto d-block rounded-4" alt="" style="width: 150px; max-height: 100px;">
     <% end %>
   </div>
 </div>
 
-<div class="shadow">
-  <div class="progress mt-4 mb-2" style="height: 30px;">
-    <div class="progress-bar bg-success" role="progressbar" style="width: <%= @percentage %>%;" aria-valuenow="<%= @percentage %>" aria-valuemin="0" aria-valuemax="100"><%= @percentage %>%</div>
+<div class="shadow-progress" style="border-radius: .5em;">
+  <div class="progress mt-4 mb-2" style="height: 30px; border-radius: .5em;">
+    <div class="progress-bar bg-success" role="progressbar" style="width: <%= @percentage %>%; border-radius: .5em;" aria-valuenow="<%= @percentage %>" aria-valuemin="0" aria-valuemax="100"><%= @percentage %>%</div>
   </div>
 </div>
 <div class="d-flex justify-content-between">
@@ -31,10 +31,12 @@
 </div>
 <% @goals.each do |goal| %>
   <% percentages = (current_user.balance * 100) / goal.amount %>
-  <div class="progress" style="height: 5px; max-width: 100%">
-    <div class="progress-bar bg-success" role="progressbar" style="width: <%= percentages %>%;" aria-valuenow="<%= percentages %>" aria-valuemin="0" aria-valuemax="100"></div>
-  </div>
-  <div class="card-product mb-3 rounded">
+  <div style="border-radius: .5em .5em 0 0;">
+    <div class="progress" style="height: 5px; max-width: 100%; border-radius: .5em .5em 0 0;">
+      <div class="progress-bar bg-success" role="progressbar" style="width: <%= percentages %>%;" aria-valuenow="<%= percentages %>" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+    </div>
+  <div class="card-product mb-3" style="border-radius: 0 0 .5em .5em;">
     <% if goal.photo.attached? %>
       <%= cl_image_tag goal.photo.key %>
     <% else %>
@@ -51,18 +53,21 @@
     <div class="d-flex">
       <%= link_to favorite_goal_path(goal), data: { turbo_method: :patch } do %>
         <% if goal.favorite == false %>
-          <i class="fa-regular fa-star fs-4 me-3 text-dark"></i>
+          <i class="fa-regular fa-star fs-4 mt-1 me-3 text-dark"></i>
         <% else %>
-          <i class="fa-solid fa-star fs-4 me-3 text-success"></i>
+          <i class="fa-solid fa-star fs-4 mt-1 me-3 text-success"></i>
         <% end %>
       <% end %>
-      <%= link_to edit_goal_path(goal) do %>
-          <%= content_tag(:i, "", class: "fa-solid fa-pen-to-square fs-4 text-dark me-3") %>
-        <% end %>
-        <%= link_to goal_path(goal), method: :delete,
-            data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{goal.name} Goal?" } do %>
-              <%= content_tag(:i, "", class: "fa-solid fa-trash-can fs-4 text-dark me-2") %>
-        <% end %>
+      <div class="dropdown">
+        <button class="dropbtn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+          <div class="dropdown-content">
+            <%= link_to "Edit", edit_goal_path(goal)%>
+            <%= link_to "Delete",
+              goal_path(goal),
+              method: :delete,
+              data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{goal.name} group with all its expenses?" }%>
+          </div>
+      </div>
     </div>
   </div>
 <% end %>

@@ -113,13 +113,16 @@
                     <% end %>
                   </div>
                   <div class="col-3 d-flex justify-content-end">
-                    <%= link_to edit_transaction_path(transaction) do %>
-                      <%= content_tag(:i, "", class: "fa-solid fa-pen-to-square text-dark me-1") %>
-                    <% end %>
-                    <%= link_to transaction_path(transaction), method: :delete,
-                        data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{transaction.name} transaction?" } do %>
-                          <%= content_tag(:i, "", class: "fa-solid fa-trash-can text-dark me-2") %>
-                    <% end %>
+                    <div class="dropdown">
+                        <button class="dropbtn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                          <div class="dropdown-content">
+                            <%= link_to "Edit", edit_transaction_path(transaction)%>
+                            <%= link_to "Delete",
+                              transaction_path(transaction),
+                              method: :delete,
+                              data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{transaction.name} group with all its expenses?" }%>
+                          </div>
+                    </div>
                   </div>
                 </div>
               <% end %>
@@ -140,13 +143,16 @@
                     <% end %>
                   </div>
                   <div class="col-3 d-flex justify-content-end">
-                    <%= link_to edit_transaction_path(transaction) do %>
-                      <%= content_tag(:i, "", class: "fa-solid fa-pen-to-square fs-4 text-dark me-3") %>
-                    <% end %>
-                    <%= link_to transaction_path(transaction), method: :delete,
-                        data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{transaction.name} transaction?" } do %>
-                          <%= content_tag(:i, "", class: "fa-solid fa-trash-can fs-4 text-dark me-2") %>
-                    <% end %>
+                    <div class="dropdown">
+                        <button class="dropbtn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                          <div class="dropdown-content">
+                            <%= link_to "Edit", edit_transaction_path(transaction)%>
+                            <%= link_to "Delete",
+                              transaction_path(transaction),
+                              method: :delete,
+                              data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{transaction.name} group with all its expenses?" }%>
+                          </div>
+                    </div>
                   </div>
 
                 </div>
