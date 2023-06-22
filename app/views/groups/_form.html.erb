@@ -7,7 +7,7 @@
     <%= f.input :user_ids, label: "Usernames", collection: User.where.not(id: current_user.id).pluck(:username, :id), input_html: { multiple: true, class: 'multiple-select rounded-boxes', style: 'border-radius: 0.5em;', data: { controller: 'tom-select', tom_select_options_value: { tags: true } } }, wrapper_html: { class: 'rounded-boxes', data: { allow_clear: true } } %>
     <div class="form-actions d-flex justify-content-between mt-4">
       <div class="d-flex align-items-center">
-        <%= link_to "Cancel", groups_path, class: "btn btn-danger" %>
+        <%= link_to "Cancel", groups_path, class: "ms-3 btn btn-flat-cancel" %>
       </div>
       <div>
         <%= f.button :submit, class: "btn btn-flat" %>
