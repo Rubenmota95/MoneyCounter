@@ -65,21 +65,30 @@
       <div class=" d-flex flex-column-reverse">
                <% @group_expenses.each do |expense| %>
                 <div class="card-product mb-3 d-flex">
-                  <div class="col-3">
-                    <p class="fs-12 ms-3 " style="margin-top: -3px"><%= expense.name.capitalize %></p>
-                    <p class="fs-12 ms-3 ">by <%= expense.user.username.capitalize %></p>
-
+                  <div class="col-1 ms-3 d-flex">
+                    <div>
+                      <% if expense.user.photo.attached? %>
+                        <%= image_tag(expense.user.photo, class: "avatar", style: "height: 25px; width: 25px; border-radius: 50%", data_controller:"tooltip", data_bs_toggle:"tooltip", data_bs_placement:"top", title: "#{expense.user.username.capitalize}") %>
+                      <% else %>
+                        <% content_tag(:i, "", class: "fa-solid fa-circle-user text-dark") %>
+                      <% end %>
+                    </div>
                   </div>
                   <div class="col-3 d-flex">
-                    <p class="fs-8 ms-3"><%= expense.category %></p>
+                    <p class="fs-12 ms-1 "><%= expense.name.capitalize %></p>
                   </div>
-                  <div class="col-3 d-flex justify-content-end">
-                    <p class="fs-8 ms-2"><%= expense.amount %> € <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= expense.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></p>
+
+                  <div class="col-3 d-flex">
+                    <p class="fs-8"><%= expense.category %></p>
                   </div>
-                  <div class="col-3 d-flex justify-content-end">
+                  <div class="col-2 d-flex justify-content-end">
+                    <p class="fs-8"><%= expense.amount %> € <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= expense.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></p>
+                  </div>
+                  <div class="col-2 d-flex justify-content-end">
                     <%= link_to edit_transaction_path(expense) do %>
                       <%= content_tag(:i, "", class: "fa-solid fa-pen-to-square text-dark me-1") %>
                     <% end %>
+                    <p></p>
                     <%= link_to transaction_path(expense), method: :delete,
                       data: { turbo_method: 'DELETE', turbo_confirm: "Delete #{expense.name} transaction?" } do %>
                         <%= content_tag(:i, "", class: "fa-solid fa-trash-can text-dark me-2") %>
@@ -95,18 +104,27 @@
     <div class=" d-flex flex-column-reverse">
                <% @settled_group_expenses.each do |expense| %>
                 <div class="card-product bg-light text-muted mb-3 d-flex">
-                  <div class="col-3">
-                    <p class="fs-6 ms-3"><%= expense.name.capitalize %></p>
-                    <p class="fs-12 ms-3" style="margin-top: -3px">by <%= expense.user.username.capitalize %></p>
+                  <div class="col-1 ms-3 d-flex">
+                    <div>
+                      <% if expense.user.photo.attached? %>
+                        <%= image_tag(expense.user.photo, class: "avatar", style: "height: 25px; width: 25px; border-radius: 50%", data_controller:"tooltip", data_bs_toggle:"tooltip", data_bs_placement:"top", title: "#{expense.user.username.capitalize}") %>
+                      <% else %>
+                        <% content_tag(:i, "", class: "fa-solid fa-circle-user text-dark") %>
+                      <% end %>
+                    </div>
                   </div>
                   <div class="col-3 d-flex">
-                    <p class="fs-8 ms-3"><%= expense.category %></p>
+                    <p class="fs-12 ms-1 "><%= expense.name.capitalize %></p>
                   </div>
-                  <div class="col-3 d-flex justify-content-end">
-                    <p class="fs-8 ms-2"><%= expense.amount %> € <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= expense.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></p>
+
+                  <div class="col-3 d-flex">
+                    <p class="fs-8"><%= expense.category %></p>
                   </div>
-                  <div class="col-3 d-flex justify-content-end">
-                    <p class="fs-8 me-2">Settled <i class="fa-solid fa-square-check"></i></p>
+                  <div class="col-2 d-flex justify-content-end">
+                    <p class="fs-8"><%= expense.amount %> € <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= expense.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></p>
+                  </div>
+                  <div class="col-2 d-flex ">
+                    <p class="fs-8 ms-3" >Settled <i class="fa-solid fa-square-check"></i></p>
                   </div>
                 </div>
               <% end %>
