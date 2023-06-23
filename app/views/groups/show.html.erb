@@ -31,7 +31,7 @@
               <% @group.user_amounts_diff.each do |el| %>
                 <p class="card-text"><%= "- #{el[:user].username} spent #{el[:full_amount]} €" %></p>
               <% end %>
-              <h5 class="card-title fw-bold"><i class="fa-solid fa-handshake"></i> Fair Share: <%= @group.fair_amount %> €</h5>
+              <h5 class="card-title fw-bold"><i class="fa-solid fa-handshake"></i> Fair Share: <%= @group.fair_amount.round(1) %> €</h5>
             </div>
           </div>
         </div>
@@ -40,7 +40,7 @@
             <div class="card-body">
               <h5 class="card-title fw-bold"><i class="fa-solid fa-file-invoice"></i> Who owes:</h5>
               <% @group.who_to_who.each do |txn| %>
-                <p class="card-text"><%= "- #{txn[:payer].username} owes #{txn[:receiver].username} #{txn[:expense].amount} €" %></p>
+                <p class="card-text"><%= "- #{txn[:payer].username} owes #{txn[:receiver].username} #{txn[:expense].amount.round(1)} €" %></p>
               <% end %>
               <%= form_tag update_group_status_transactions_path, method: :post do %>
                 <%= hidden_field_tag :group_id, @group.id %>

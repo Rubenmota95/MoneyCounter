@@ -46,7 +46,7 @@
     <div class="text-start">
       <p class="fs-8 ms-3 me-3"><%= goal.name %></p>
     </div>
-    <div class="text-end">
+    <div class="text-end d-flex justify-content-end">
       <p class="fs-8 me-3"><%= goal.amount.round(1) %> € <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= goal.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></p>
     </div>
     </div>
