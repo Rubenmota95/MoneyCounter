@@ -36,19 +36,17 @@
       <div class="progress-bar bg-success" role="progressbar" style="width: <%= percentages %>%;" aria-valuenow="<%= percentages %>" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
     </div>
-  <div class="card-product mb-3" style="border-radius: 0 0 .5em .5em;">
-    <% if goal.photo.attached? %>
-      <%= cl_image_tag goal.photo.key %>
-    <% else %>
-      <img src="https://m.media-amazon.com/images/I/716+A9OrcSL._AC_SL1500_.jpg">
-    <% end %>
-    <div class="d-flex justify-content-between">
-    <div class="text-start">
-      <p class="fs-8 ms-3 me-3"><%= goal.name %></p>
+  <div class="card-product d-flex mb-3" style="border-radius: 0 0 .5em .5em;">
+      <% if goal.photo.attached? %>
+        <%= cl_image_tag goal.photo.key %>
+      <% else %>
+        <img src="https://m.media-amazon.com/images/I/716+A9OrcSL._AC_SL1500_.jpg" style="border-radius: .5em 0 0 .5em;">
+      <% end %>
+    <div class="col-3 d-flex justify-content-start">
+      <p class="fs-8 ms-1 me-3"><%= goal.name %></p>
     </div>
-    <div class="text-end d-flex justify-content-end">
+    <div class="col-3 d-flex justify-content-end">
       <p class="fs-8 me-3"><%= goal.amount.round(1) %> € <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= goal.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></p>
-    </div>
     </div>
     <div class="d-flex">
       <%= link_to favorite_goal_path(goal), data: { turbo_method: :patch } do %>
@@ -59,7 +57,7 @@
         <% end %>
       <% end %>
       <div class="dropdown">
-        <button class="dropbtn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+        <button class="dropbtn me-2"><i class="fa-solid fa-ellipsis-vertical"></i></button>
           <div class="dropdown-content">
             <%= link_to "Edit", edit_goal_path(goal)%>
             <%= link_to "Delete",
