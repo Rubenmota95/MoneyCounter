@@ -7,9 +7,9 @@
       <p class="mt-1" style="margin-bottom: 3px!important;">
       <span class="d-flex align-center">
       <% if current_user.balance < 0 %>
-        <strong>Balance: </strong><span class="text-danger ms-1" style="margin-top: 1.6px;">€<%= current_user.balance.round(1) %></span></span></p>
+        <strong>Balance: </strong><span class="text-danger ms-1" style="margin-top: 1.6px;"><%= current_user.balance.round(1) %> €</span></span></p>
       <% else %>
-        <strong>Balance: </strong><span class="text-success ms-1" style="margin-top: 1.6px;">€<%= current_user.balance.round(1) %></span></span></p>
+        <strong>Balance: </strong><span class="text-success ms-1" style="margin-top: 1.6px;"><%= current_user.balance.round(1) %> €</span></span></p>
       <% end %>
     </div>
   </div>
