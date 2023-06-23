@@ -105,7 +105,7 @@
                   <div class="col-3">
                     <p class="fs-8 ms-2 me-3"><%= transaction.category.capitalize %></p>
                   </div>
-                  <div class="col-3">
+                  <div class="col-3 d-flex justify-content-end">
                     <% if transaction.kind == "Expense" %>
                       <p class="fs-8 me-3"><span class="text-danger">-<%= transaction.amount.round(1) %> €</span> <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= transaction.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></p>
                     <% else %>
@@ -137,7 +137,7 @@
                   <div class="col-3">
                     <p class="fs-8 ms-2 me-3"><%= transaction.category.capitalize %></p>
                   </div>
-                  <div class="col-3">
+                  <div class="col-3 d-flex justify-content-end">
                     <% if transaction.kind == "Expense" %>
                       <p class="fs-8 me-3"><span class="text-danger">-<%= transaction.amount.round(1) %> €</span> <i class="fa-solid fa-circle-info" data-controller="tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= transaction.created_at.strftime('%A, %d %b %Y %l:%M %p') %>"></i></p>
                     <% else %>
