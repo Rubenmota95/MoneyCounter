@@ -36,7 +36,7 @@ class GoalsController < ApplicationController
     if @goal.user == current_user
       redirect_to goal_path(goal)
     else
-      redirect_to goals_path, notice: "No permission..."
+      redirect_to goals_path
     end
   end
 
@@ -48,7 +48,7 @@ class GoalsController < ApplicationController
     @goal = Goal.new(goal_params)
     @goal.user = current_user
     if @goal.save
-      redirect_to goals_path, notice: "Goal added successfully"
+      redirect_to goals_path
     else
       render :new, status: :unprocessable_entity
     end

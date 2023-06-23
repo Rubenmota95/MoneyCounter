@@ -8,7 +8,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     @group_expenses= @group.expenses
     if !current_user.groups.exists?(@group.id)
-      redirect_to groups_path, notice: "No permission..."
+      redirect_to groups_path
     end
     @expenses = Transaction.where(group: @group, kind: "Expense")
     @settled_group_expenses= @group.transactions.where(group_id: @group.id, kind: "Expense", group_status: true)
@@ -31,7 +31,7 @@ class GroupsController < ApplicationController
     @group.users << current_user
 
     if @group.save
-      redirect_to groups_path, notice: "Group added successfully"
+      redirect_to groups_path
     else
       render :new, status: :unprocessable_entity
     end

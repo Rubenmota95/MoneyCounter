@@ -9,7 +9,7 @@ class ExpensesController < ApplicationController
     if @expense.user == current_user
       redirect_to expense_path(expense)
     else
-      redirect_to expenses_path, notice: "No permission..."
+      redirect_to expenses_path
     end
   end
 
@@ -23,10 +23,10 @@ class ExpensesController < ApplicationController
 
     if @expense.save!
       if @expense.group_id.nil?
-        redirect_to expenses_path, notice: "Expense added successfully"
+        redirect_to expenses_path
       else
         @group = Group.find(@expense.group_id)
-        redirect_to group_path(@group), notice: "Expense added successfully to #{@group.name}"
+        redirect_to group_path(@group)
       end
     else
       render :new, status: :unprocessable_entity

@@ -5,7 +5,7 @@
   <% else %>
 
     <div class="d-flex" data-transaction-target="graph">
-      <% if @donut_chart_data && @donut_chart_data.count > 3 && (params[:query] == "expense" || params[:query] == "income") %>
+      <% if @donut_chart_data && @donut_chart_data.count > 0 && (params[:query] == "expense" || params[:query] == "income") %>
           <%= render "shared/donut_chart", data: @donut_chart_data %>
       <% elsif @area_chart_data && @area_chart_data.count > 3 %>
           <%= render "shared/area_chart", data: @area_chart_data %>

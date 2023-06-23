@@ -9,7 +9,7 @@ class IncomesController < ApplicationController
     if @income.user == current_user
       redirect_to income_path(income)
     else
-      redirect_to incomes_path, notice: "No permission..."
+      redirect_to incomes_path
     end
   end
 
@@ -21,7 +21,7 @@ class IncomesController < ApplicationController
     @income = Income.new(income_params)
     @income.user = current_user
     if @income.save
-      redirect_to incomes_path, notice: "Income added successfully"
+      redirect_to incomes_path
     else
       render :new, status: :unprocessable_entity
     end
